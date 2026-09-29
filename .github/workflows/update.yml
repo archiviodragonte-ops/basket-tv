@@ -3,10 +3,7 @@ name: Aggiornamento Basket TV
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 10 * * *"
-      timezone: "Europe/Rome"
-    - cron: "0 23 * * *"
-      timezone: "Europe/Rome"
+    - cron: "*/30 * * * *"
 
 permissions:
   contents: write
@@ -15,20 +12,24 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - name: Scarica repository
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Configura Python
+
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+
       - name: Installa dipendenze
         run: pip install -r requirements.txt
-      - name: Aggiorna calendari
+
+      - name: Aggiorna calendario
         run: python update.py
-      - name: Pubblica data.json
+
+      - name: Pubblica data aggiornata
         run: |
-          git config user.name "basket-tv-bot"
-          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data.json
-          git diff --cached --quiet || git commit -m "Aggiorna programmazione Basket TV"
+          git diff --cached --quiet || git commit -m "Aggiornamento automatico calendario"
           git push
