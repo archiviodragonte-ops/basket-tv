@@ -15,3 +15,10 @@ GitHub Actions esegue `update.py` ogni giorno alle **10:00** e alle **23:00** co
 
 LBA espone nel calendario ufficiale data, ora e canali TV; per esempio la pagina ufficiale mostra ore e LBATV/Sky/Cielo per le gare programmate. citeturn0search0turn0search1
 LNP pubblica i calendari completi 2026/27 di A2 e B Nazionale. citeturn0search2turn1search0
+
+
+## Aggiornamento automatico
+
+Il sito non ha un pulsante manuale. GitHub Actions esegue `update.py` automaticamente **ogni 30 minuti, tutti i giorni**, aggiornando `data.json`. Il sito visualizza i dati aggiornati alla successiva apertura/ricarica della pagina.
+
+Nota: GitHub segnala che gli avvii pianificati possono occasionalmente subire ritardi in periodi di forte carico.
