@@ -36,7 +36,7 @@ const W=["DOM","LUN","MAR","MER","GIO","VEN","SAB"];
 let data={games:[]},selected=new Date(),filter="ALL";
 const $=s=>document.querySelector(s);
 function iso(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
-function buildDays(){const b=$("#days");b.innerHTML="";for(let i=-3;i<25;i++){const d=new Date(selected);d.setDate(d.getDate()+i);const x=document.createElement("button");x.className="day"+(!i?" active":"");x.innerHTML=`<b>${W[d.getDay()]}</b><span>${d.getDate()}</span>`;x.onclick=()=>{selected=d;render()};b.appendChild(x)}}
+function buildDays(){const b=$("#days");b.innerHTML="";for(let i=-7;i<285;i++){const d=new Date(selected);d.setDate(d.getDate()+i);const x=document.createElement("button");x.className="day"+(!i?" active":"");x.innerHTML=`<b>${W[d.getDay()]}</b><span>${d.getDate()}</span>`;x.onclick=()=>{selected=d;render()};b.appendChild(x)}}
 function buildFilters(){const b=$("#filters");b.innerHTML="";COMP.forEach(([k,l])=>{const x=document.createElement("button");x.className="filter"+(k===filter?" active":"");x.textContent=l;x.onclick=()=>{filter=k;render()};b.appendChild(x)})}
 function render(){
  buildDays();buildFilters();

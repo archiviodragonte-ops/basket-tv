@@ -70,151 +70,165 @@ def lba():
         if g:out.append(g)
     return dedupe(out)
 
+
 # ---------- LNP ----------
+A2_PDF="https://static.legapallacanestro.com/sites/default/files/editor/calendario_serie_a2_oww_2026-27.pdf"
+B_A_PDF="https://static.legapallacanestro.com/sites/default/files/editor/calendario_b_naz._gir._a_2026-27.pdf"
+B_B_PDF="https://static.legapallacanestro.com/sites/default/files/editor/calendario_b_naz._gir._b_2026-27.pdf"
+A2_CAL="https://www.legapallacanestro.com/serie/1/calendario"
+B_CAL_A="https://www.legapallacanestro.com/serie/4/calendario"
+B_CAL_B="https://www.legapallacanestro.com/serie/4/calendario?qt-campionato-selector=1"
+
 A2_TEAMS=[
-"Halley Campania Avellino Basket","Flats Service Fortitudo Bologna","Valtur Brindisi",
-"Paperdi JuveCaserta 2021","Sella Cento","UEB Gesteco Cividale","Ferraroni Juvi Cremona 1952",
-"Unieuro Forlì","Libertas Livorno 1947","Gemini Mestre","Wegreenit Urania Milano",
-"La T Tecnica Gema Montecatini","Victoria Libertas Pesaro","Lumos Pistoia Basket",
-"RSR Sebastiani Rieti","Dole Basket Rimini","Crifo Wines Ruvo di Puglia",
-"Banco di Sardegna Sassari","Reale Mutua Torino","ELAchem Vigevano 1955"]
+"Halley Campania Avellino Basket","Flats Service Fortitudo Bologna","Valtur Brindisi","Juvecaserta 2021","Sella Cento","UEB Gesteco Cividale","Ferraroni Juvi Cremona 1952","Unieuro Forlì","Libertas Livorno 1947","Gemini Mestre","Wegreenit Urania Milano","La T Tecnica Gema Montecatini","CMT Orange Tools Pesaro","Lumos Pistoia Basket","RSR Sebastiani Rieti","Dole Basket Rimini","Crifo Wines Ruvo di Puglia","Banco di Sardegna Sassari","Reale Mutua Torino","Elachem Vigevano 1955"]
 B_TEAMS=[
-"Moncada Energy Agrigento","A2A Leonessa Brescia","Infodrive Capo d'Orlando","Rimadesio Desio",
-"Adamant Ferrara","Fiorenzuola Bees","Andrea Costa Imola","SAE Scientifica-Soevis Legnano Knights",
-"Luxarm Lumezzane","Paffoni Fulgor Basket Omegna","Logiman Orzinuovi","UCC Assigeco Piacenza",
-"Siaz Basket Piazza Armerina","Pallacanestro Viola Reggio Calabria","LTC Group Sangiorgese Basket",
-"Rucker San Vendemiano","TAV Treviglio Brianza Basket","S4 Energia Vicenza",
-"Felice Scandone Avellino","Umana San Giobbe Chiusi","Ristopro Fabriano","Tema Sinergie Faenza",
-"Benacquista Assicurazioni Latina","Pielle Livorno","Basketball Club Lucca","FABO Herons Montecatini",
-"PSA Napoli Est","Consultinvest Loreto Pesaro","Solbat Golfo Piombino","Consorzio Leonardo Dany Quarrata",
-"OraSì Ravenna","Luiss Roma","Virtus GVM Roma 1960","Liofilchem Roseto",
-"Allianz Pazienza Cestistica San Severo","Mens Sana Basketball Siena"]
+"Moncada Energy Agrigento","A2A Leonessa Brescia","Infodrive Capo d'Orlando","Rimadesio Desio","Adamant Ferrara","Fiorenzuola Bees","Andrea Costa Imola","SAE Scientifica-Soevis Legnano Knights","LuxArm Lumezzane","Paffoni Fulgor Basket Omegna","Logiman Orzinuovi","UCC Assigeco Piacenza","Siaz Basket Piazza Armerina","Redel Reggio Calabria","LTC Group Sangiorgese Basket","Rucker San Vendemiano","TAV Treviglio Brianza Basket","S4 Energia Vicenza",
+"Felice Scandone Avellino","Umana San Giobbe Chiusi","Ristopro Fabriano","Tema Sinergie Faenza","Benacquista Assicurazioni Latina","Verodol CBD Pielle Livorno","Basketball Club Lucca","Fabo Herons Montecatini","PSA Napoli Est","Consultinvest Loreto Pesaro","Solbat Golfo Piombino","Consorzio Leonardo Dany Quarrata","OraSì Ravenna","Luiss Roma","Virtus GVM Roma 1960","Liofilchem Roseto","Allianz Pazienza Cestistica San Severo","Sendero Mens Sana Siena"]
+
+def normalize_team(s):
+    s=clean(s)
+    repl={
+      "ELAchem":"Elachem","Luxarm":"LuxArm","FABO":"Fabo","Pielle Livorno":"Verodol CBD Pielle Livorno",
+      "Pallacanestro Viola Reggio Calabria":"Redel Reggio Calabria","Mens Sana Basketball Siena":"Sendero Mens Sana Siena",
+      "Paperdi JuveCaserta 2021":"Juvecaserta 2021","Victoria Libertas Pesaro":"CMT Orange Tools Pesaro"
+    }
+    return repl.get(s,s)
+
+def parse_lnp_rows(url, comp, label, teams):
+    soup=BeautifulSoup(get(url).text,'html.parser')
+    out=[]
+    team_patterns=[(normalize_team(t), re.compile(re.escape(t),re.I)) for t in sorted(teams,key=len,reverse=True)]
+    for tr in soup.select('tr'):
+        cells=[clean(c.get_text(' ',strip=True)) for c in tr.select('th,td')]
+        if len(cells)<3: continue
+        row=' | '.join(cells)
+        date=date_from(row)
+        if not date: continue
+        tm=time_from(row)
+        found=[]
+        for team,pat in team_patterns:
+            if pat.search(row): found.append(team)
+        # preserve table order using positions
+        positions=[]
+        for team,pat in team_patterns:
+            m=pat.search(row)
+            if m: positions.append((m.start(),team))
+        positions.sort()
+        if len(positions)>=2:
+            home,away=positions[0][1],positions[1][1]
+            watch='LNP Pass'
+            low=row.lower()
+            if 'rai' in low or 'raisport' in low: watch='LNP Pass · RaiSport HD'
+            out.append(make(date,tm,home,away,comp,label,watch,'LNP'))
+    return dedupe([g for g in out if g])
 
 def pdf_text(url):
-    r=get(url);p=Path("_basket_tv.pdf");p.write_bytes(r.content)
-    try:return "\n".join(page.extract_text() or "" for page in PdfReader(str(p)).pages)
+    r=get(url); p=Path('_basket_tv.pdf'); p.write_bytes(r.content)
+    try:return '\n'.join(page.extract_text() or '' for page in PdfReader(str(p)).pages)
     finally:
         try:p.unlink()
         except:pass
 
 def lnp_pdf(url,comp,label,teams):
-    text=pdf_text(url).replace("\r","\n")
-    dates=list(re.finditer(r"\b(\d{1,2})[./-](\d{1,2})[./-](2026|2027)\b",text))
-    pats=[(t,re.compile(re.escape(t),re.I)) for t in sorted(set(teams),key=len,reverse=True)]
+    text=pdf_text(url).replace('\r','\n')
+    dates=list(re.finditer(r'\b(\d{1,2})[./-](\d{1,2})[./-](2026|2027)\b',text))
+    pats=[(normalize_team(t),re.compile(re.escape(t),re.I)) for t in sorted(teams,key=len,reverse=True)]
     out=[]
     for i,m in enumerate(dates):
-        d,mo,y=m.groups();date=f"{int(y):04d}-{int(mo):02d}-{int(d):02d}"
+        d,mo,y=m.groups(); date=f'{int(y):04d}-{int(mo):02d}-{int(d):02d}'
         block=clean(text[m.end():(dates[i+1].start() if i+1<len(dates) else len(text))])
         found=[]
         for team,p in pats:
             z=p.search(block)
-            if z:found.append((z.start(),team))
+            if z: found.append((z.start(),team))
         found.sort()
-        if len(found)<2:continue
-        tm=time_from(block)
-        g=make(date,tm,found[0][1],found[1][1],comp,label,"LNP Pass","LNP")
-        if g:out.append(g)
+        if len(found)>=2:
+            g=make(date,time_from(block),found[0][1],found[1][1],comp,label,'LNP Pass','LNP')
+            if g:out.append(g)
     return dedupe(out)
 
-def lnp_news_times(games):
-    # LNP news frequently announces the definitive TV/time schedule.
-    # We only change a game's time when an article explicitly contains both
-    # team names and a clock; otherwise the PDF date remains unchanged.
-    try:soup=BeautifulSoup(get(LNP_HOME).text,"html.parser")
-    except Exception:return games
-    texts=[clean(x.get_text(" ",strip=True)) for x in soup.find_all(["article","div","p","li"])]
-    for g in games:
-        if g["time"]:continue
-        key1=g["home"].lower();key2=g["away"].lower()
-        for t in texts:
-            low=t.lower()
-            if key1 in low and key2 in low:
-                tm=time_from(t)
-                if tm:g["time"]=tm;break
-    return games
-
-# ---------- EuroLeague / EuroCup ----------
-def deep(obj,names):
-    if isinstance(obj,dict):
-        for k,v in obj.items():
-            if k.lower() in {n.lower() for n in names} and v not in (None,""):return v
-        for v in obj.values():
-            z=deep(v,names)
-            if z not in (None,""):return z
-    elif isinstance(obj,list):
-        for v in obj:
-            z=deep(v,names)
-            if z not in (None,""):return z
-    return None
-def team_name(v):
-    if isinstance(v,str):return clean(v)
-    if isinstance(v,dict):
-        for k in ("name","clubPermanentName","clubName","teamName","displayName"):
-            if v.get(k):return clean(v[k])
-        return team_name(v.get("club") or v.get("team"))
-    return ""
-def euro(comp,season,label):
-    r=get(EURO_API.format(comp=comp,season=season));payload=r.json()
-    rows=payload.get("data",[]) if isinstance(payload,dict) else payload
+def lnp(comp,label,cal_urls,pdf_urls,teams):
     out=[]
-    for x in rows if isinstance(rows,list) else []:
-        if not isinstance(x,dict):continue
-        local=x.get("local") or x.get("home") or x.get("homeTeam")
-        road=x.get("road") or x.get("away") or x.get("awayTeam")
-        home,away=team_name(local),team_name(road)
-        if not home:home=clean(deep(x,["localName","homeName","localTeamName"]))
-        if not away:away=clean(deep(x,["roadName","awayName","roadTeamName"]))
-        dt=deep(x,["date","gameDate","startDate","startTime","dateTime"])
-        date=date_from(dt)
-        tm=time_from(dt) or time_from(deep(x,["time","gameTime","startTimeLocal"]))
-        g=make(date,tm,home,away,comp,label,"Sky Sport / NOW","Euroleague Basketball")
-        if g:out.append(g)
+    for url in cal_urls:
+        try:
+            gs=parse_lnp_rows(url,comp,label,teams)
+            if gs: out.extend(gs)
+        except Exception: pass
+    # PDF guarantees the complete season even if the live calendar page changes.
+    for url in pdf_urls:
+        try:
+            gs=lnp_pdf(url,comp,label,teams)
+            if gs: out.extend(gs)
+        except Exception: pass
     return dedupe(out)
+
+# ---------- EuroLeague / EuroCup official PDFs ----------
+EUROLEAGUE_PDF='https://ftpserver.euroleague.net/media/2026-27_EL_RS_CALENDAR_PRINTABLE.pdf'
+EUROCUP_PDF='https://ftpserver.euroleague.net/media/2026-27_EC_RS_CALENDAR_PRINTABLE.pdf'
+
+def euro_pdf(url,comp,label):
+    text=pdf_text(url).replace('\r','\n')
+    out=[]
+    # Official PDF format: full date, local time, GMT time, HOME AWAY.
+    pat=re.compile(r'^(?:LOCAL GMT\s*)?(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(2026|2027)\s+(\d{1,2}:\d{2})\s+\d{1,2}:\d{2}\s+(.+?)\s+(.+?)$',re.I)
+    months={m.lower():i for i,m in enumerate(['January','February','March','April','May','June','July','August','September','October','November','December'],1)}
+    # Team lists make the split reliable when names contain spaces.
+    euro_teams=[
+      'CRVENA ZVEZDA MERIDIANBET BELGRADE','ZALGIRIS KAUNAS','DUBAI BASKETBALL','REAL MADRID','HAPOEL IBI TEL AVIV','FC BAYERN MUNICH','FC BARCELONA','ANADOLU EFES ISTANBUL','KOSNER BASKONIA VITORIA-GASTEIZ','OLYMPIACOS PIRAEUS','LDLC ASVEL VILLEURBANNE','MACCABI RAPYD TEL AVIV','PANATHINAIKOS AKTOR ATHENS','PARIS BASKETBALL','BESIKTAS ISTANBUL','VALENCIA BASKET','FENERBAHCE ISTANBUL','VIRTUS BOLOGNA','PARTIZAN MOZZART BET BELGRADE','ARMANI OLIMPIA MILAN',
+      'RECOLETAS SALUD SAN PABLO BURGOS','CEDEVITA OLIMPIJA LJUBLJANA','HAPOEL MIDTOWN JERUSALEM','ROSTOCK SEAWOLVES','RIGA ZELLI','BAGLIETTO DERTHONA TORTONA','LE MANS SARTHE BASKET','ARIS THESSALONIKI BETSSON','LA LAGUNA TENERIFE','TURK TELEKOM ANKARA','MAXIMA ROMA','SIAULIAI BASKETBALL','LONDON LIONS','UMANA REYER VENICE','SKYLINERS FRANKFURT','U-BT CLUJ-NAPOCA','SLASK WROCLAW','BUDUCNOST VOLI PODGORICA','NAPOLI BASKETBALL','COSEA JL BOURG-EN-BRESSE','NEPTUNAS KLAIPEDA','DOLOMITI ENERGIA TRENTO','TOFAS BURSA','NINERS CHEMNITZ','LIETKABELIS PANEVEZYS','AS MONACO','PAOK THESSALONIKI','KIDS&US MANRESA','RATIOPHARM ULM','BALKAN BOTEVGRAD','BAHCESEHIR COLLEGE ISTANBUL','ROMA BASKETBALL']
+    teams=sorted(set(euro_teams),key=len,reverse=True)
+    for line in text.splitlines():
+        line=clean(line)
+        m=re.match(r'^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+(\d{1,2})\s+(\w+)\s+(2026|2027)\s+(\d{1,2}:\d{2})\s+\d{1,2}:\d{2}\s+(.+)$',line,re.I)
+        if not m: continue
+        d,mon,y,tm,rest=m.groups(); mo=months.get(mon.lower())
+        if not mo: continue
+        # Find the first two known team names in the remaining string.
+        positions=[]
+        for t in teams:
+            z=re.search(re.escape(t),rest,re.I)
+            if z: positions.append((z.start(),t))
+        positions.sort()
+        if len(positions)>=2:
+            home=positions[0][1].title(); away=positions[1][1].title()
+            date=f'{y}-{mo:02d}-{int(d):02d}'
+            out.append(make(date,tm,home,away,comp,label,'Sky Sport · NOW','Euroleague Basketball'))
+    return dedupe(out)
+
+def euro(comp,label,url):
+    return euro_pdf(url,comp,label)
 
 def main():
-    try:old=json.loads(DATA.read_text(encoding="utf-8"))
-    except Exception:old={}
-    old_games=old.get("games",[])
-    fetched=[];report=[]
-
+    try: old=json.loads(DATA.read_text(encoding='utf-8'))
+    except Exception: old={}
+    fetched=[]; report=[]
     jobs=[
-        ("LBA","LBA Serie A",lba),
-        ("A2","Serie A2",lambda:lnp_pdf(A2_PDF,"A2","Serie A2",A2_TEAMS)),
-        ("B","Serie B Nazionale",lambda:lnp_pdf(B_A_PDF,"B","Serie B Nazionale",B_TEAMS)+lnp_pdf(B_B_PDF,"B","Serie B Nazionale",B_TEAMS)),
-        ("EUROLEAGUE","EuroLeague",lambda:euro("E","E2026","EuroLeague")),
-        ("EUROCUP","EuroCup",lambda:euro("U","U2026","EuroCup")),
+      ('LBA','LBA Serie A',lba),
+      ('A2','Serie A2',lambda:lnp('A2','Serie A2',[A2_CAL],[A2_PDF],A2_TEAMS)),
+      ('B','Serie B Nazionale',lambda:lnp('B','Serie B Nazionale',[B_CAL_A,B_CAL_B],[B_A_PDF,B_B_PDF],B_TEAMS)),
+      ('EUROLEAGUE','EuroLeague',lambda:euro('EUROLEAGUE','EuroLeague',EUROLEAGUE_PDF)),
+      ('EUROCUP','EuroCup',lambda:euro('EUROCUP','EuroCup',EUROCUP_PDF)),
     ]
     for comp,label,fn in jobs:
         try:
-            gs=fn()
-            if comp in ("A2","B"):gs=lnp_news_times(gs)
-            fetched+=gs;report.append(f"{label}: {len(gs)} gare")
+            gs=fn(); fetched+=gs; report.append(f'{label}: {len(gs)} gare')
         except Exception as e:
-            report.append(f"{label}: ERRORE {type(e).__name__}: {e}")
-
-    # Preserve the old competition data if a source temporarily fails.
+            report.append(f'{label}: ERRORE {type(e).__name__}: {e}')
     old_by={}
-    for g in old_games:old_by.setdefault(g.get("competition"),[]).append(g)
+    for g in old.get('games',[]): old_by.setdefault(g.get('competition'),[]).append(g)
     new_by={}
-    for g in fetched:new_by.setdefault(g["competition"],[]).append(g)
-    thresholds={"LBA":8,"A2":100,"B":300,"EUROLEAGUE":100,"EUROCUP":50}
+    for g in fetched: new_by.setdefault(g['competition'],[]).append(g)
+    # Do not silently replace a good database with a partial fetch.
+    expected={'LBA':8,'A2':200,'B':500,'EUROLEAGUE':300,'EUROCUP':180}
     final=[]
-    for comp in ("LBA","A2","B","EUROLEAGUE","EUROCUP"):
-        ng=new_by.get(comp,[])
-        final += ng if len(ng)>=thresholds[comp] else old_by.get(comp,[])
-    # Keep any future/extra records not belonging to the five managed competitions.
+    for comp in ('LBA','A2','B','EUROLEAGUE','EUROCUP'):
+        ng=dedupe(new_by.get(comp,[]))
+        final += ng if len(ng)>=expected[comp] else old_by.get(comp,[])
     for comp,gs in old_by.items():
-        if comp not in ("LBA","A2","B","EUROLEAGUE","EUROCUP"):final+=gs
-
+        if comp not in ('LBA','A2','B','EUROLEAGUE','EUROCUP'): final+=gs
     final=dedupe(final)
-    final.sort(key=lambda g:(g.get("date",""),g.get("time","99:99"),g.get("competition",""),g.get("home","")))
-    DATA.write_text(json.dumps({
-        "season":"2026/27",
-        "updated_at":datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds"),
-        "games":final,
-        "source_report":report
-    },ensure_ascii=False,indent=2))
-    print("\n".join(report))
-    print("Totale:",len(final))
+    final.sort(key=lambda g:(g.get('date',''),g.get('time','99:99'),g.get('competition',''),g.get('home','')))
+    DATA.write_text(json.dumps({'season':'2026/27','updated_at':datetime.now(timezone.utc).astimezone().isoformat(timespec='seconds'),'games':final,'source_report':report},ensure_ascii=False,indent=2))
+    print('\n'.join(report)); print('Totale:',len(final))
 
-if __name__=="__main__":main()
+if __name__=='__main__': main()
