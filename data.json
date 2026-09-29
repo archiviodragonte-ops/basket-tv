@@ -1,1 +1,81 @@
-{"season":"2026/27","updated_at":"2026-09-29T07:50:00+02:00","games":[{"date":"2026-09-26","time":"17:30","home":"Nutribullet Treviso Basket","away":"BC Roma","competition":"LBA","competition_label":"LBA Serie A","watch":"LBA TV","source":"LBA"},{"date":"2026-09-26","time":"18:00","home":"Umana Reyer Venezia","away":"Acqua S.Bernardo Cantù","competition":"LBA","competition_label":"LBA Serie A","watch":"LBA TV","source":"LBA"},{"date":"2026-09-27","time":"14:00","home":"Armani Olimpia Milano","away":"Pallacanestro Trieste","competition":"LBA","competition_label":"LBA Serie A","watch":"LBA TV · Sky Sport Basket · Cielo","source":"LBA"},{"date":"2026-09-26","time":"20:00","home":"UEB Gesteco Cividale","away":"Unieuro Forlì","competition":"A2","competition_label":"Serie A2","watch":"LNP Pass","source":"LNP"},{"date":"2026-09-27","time":"17:00","home":"Flats Service Fortitudo Bologna","away":"Crifo Wines Ruvo di Puglia","competition":"A2","competition_label":"Serie A2","watch":"LNP Pass","source":"LNP"},{"date":"2026-09-27","time":"18:00","home":"Libertas Livorno 1947","away":"Lumos Pistoia Basket","competition":"A2","competition_label":"Serie A2","watch":"LNP Pass","source":"LNP"},{"date":"2026-09-27","time":"18:00","home":"La T Tecnica Gema Montecatini","away":"Dole Basket Rimini","competition":"A2","competition_label":"Serie A2","watch":"LNP Pass","source":"LNP"}]}
+{
+  "season": "2026/27",
+  "updated_at": "2026-09-29T09:09:58+00:00",
+  "games": [
+    {
+      "date": "2026-09-26",
+      "time": "17:30",
+      "home": "Nutribullet Treviso Basket",
+      "away": "BC Roma",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV",
+      "source": "LBA"
+    },
+    {
+      "date": "2026-09-26",
+      "time": "18:00",
+      "home": "Umana Reyer Venezia",
+      "away": "Acqua S.Bernardo Cantù",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV",
+      "source": "LBA"
+    },
+    {
+      "date": "2026-09-26",
+      "time": "20:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Unieuro Forlì",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "14:00",
+      "home": "Armani Olimpia Milano",
+      "away": "Pallacanestro Trieste",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV · Sky Sport Basket · Cielo",
+      "source": "LBA"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "17:00",
+      "home": "Flats Service Fortitudo Bologna",
+      "away": "Crifo Wines Ruvo di Puglia",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Libertas Livorno 1947",
+      "away": "Lumos Pistoia Basket",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "La T Tecnica Gema Montecatini",
+      "away": "Dole Basket Rimini",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP"
+    }
+  ],
+  "source_report": [
+    "Serie A2: 0",
+    "Serie B: 0",
+    "LBA Serie A: 0"
+  ]
+}
