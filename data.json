@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-09-29T20:49:40+00:00",
+  "updated_at": "2026-09-29T20:59:40+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16520,6 +16520,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Olimpia Milano",
+      "away": "Virtus Bologna, diretta 1Q 7-7 4'",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Reyer Venezia",
       "away": "Frankfurt Skyliners: preview, dove in TV, diretta",
       "competition": "LBA",
@@ -16540,6 +16549,15 @@
       "time": "",
       "home": "LIVE Reyer Venezia",
       "away": "Frankfurt Skyliners: diretta (43-26 16' secondo quarto)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
+      "home": "LIVE Reyer Venezia",
+      "away": "Frankfurt Skyliners: diretta (9-13 4' primo quarto)",
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
@@ -16645,7 +16663,7 @@
     }
   ],
   "source_report": [
-    "LBA: 240 gare",
+    "LBA: 242 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
