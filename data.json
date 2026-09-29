@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-09-29T16:52:56+00:00",
+  "updated_at": "2026-09-29T17:02:18+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16466,6 +16466,24 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Bertram Derthona",
+      "away": "Tezenis Verona: preview, dove in TV, diretta",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
+      "home": "LIVE Maxima Roma",
+      "away": "Napoli Basket, diretta (dove in TV, preview)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Olimpia Milano",
       "away": "Virtus Bologna, diretta (dove in TV, preview, ore 20.30)",
       "competition": "LBA",
@@ -16477,6 +16495,15 @@
       "time": "",
       "home": "LIVE Reyer Venezia",
       "away": "Frankfurt Skyliners: preview, dove in TV, diretta",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
+      "home": "LIVE Udine",
+      "away": "Scafati: preview, dove in TV, diretta",
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
@@ -16555,7 +16582,7 @@
     }
   ],
   "source_report": [
-    "LBA: 242 gare",
+    "LBA: 243 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
