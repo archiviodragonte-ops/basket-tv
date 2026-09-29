@@ -1,34 +1,24 @@
-name: Basket TV - Aggiornamento
-
+name: Aggiornamento Basket TV
 on:
-  schedule:
-    - cron: '0 21 * * *'
-    - cron: '0 9 * * *'
   workflow_dispatch:
-
+  schedule:
+    - cron: '0 8 * * *'
+    - cron: '0 21 * * *'
+permissions:
+  contents: write
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Scarica repository
-        uses: actions/checkout@v4
-
-      - name: Configura Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Installa dipendenze
-        run: pip install -r requirements.txt
-
-      - name: Aggiorna programmazione
-        run: python update.py
-
-      - name: Salva aggiornamenti
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.x'}
+      - run: pip install -r requirements.txt
+      - run: python update.py
+      - name: Pubblica dati
         run: |
-          git config user.name "Basket TV Bot"
-          git config user.email "actions@github.com"
+          git config user.name 'basket-tv-bot'
+          git config user.email 'actions@github.com'
           git add data.json
-          git diff --cached --quiet || git commit -m "Aggiornamento programmazione"
+          git diff --cached --quiet || git commit -m 'Aggiorna programmazione Basket TV'
           git push
