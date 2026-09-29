@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-09-29T16:37:01+00:00",
+  "updated_at": "2026-09-29T16:52:56+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16502,6 +16502,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "Neptūnas",
+      "away": "Aquila Trento, diretta (22-21 con 7:30, 2Q)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "Nutribullet Treviso Basket",
       "away": "Armani Olimpia Milano",
       "competition": "LBA",
@@ -16546,7 +16555,7 @@
     }
   ],
   "source_report": [
-    "LBA: 241 gare",
+    "LBA: 242 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
