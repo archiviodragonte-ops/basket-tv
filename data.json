@@ -1,0 +1,428 @@
+{
+  "updated_at": "2026-09-29T14:00:00+02:00",
+  "games": [
+    {
+      "date": "2026-09-29",
+      "time": "18:00",
+      "home": "Neptūnas Klaipėda",
+      "away": "Dolomiti Energia Trentino",
+      "competition": "EUROCUP",
+      "where": "Sky Sport Basket / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "18:00",
+      "home": "Dubai Basketball",
+      "away": "FC Barcelona",
+      "competition": "EUROLEAGUE",
+      "where": "EuroLeague TV",
+      "source": "EuroLeague"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "19:00",
+      "home": "Žalgiris Kaunas",
+      "away": "Olympiacos",
+      "competition": "EUROLEAGUE",
+      "where": "EuroLeague TV",
+      "source": "EuroLeague"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "19:00",
+      "home": "Anadolu Efes",
+      "away": "Real Madrid",
+      "competition": "EUROLEAGUE",
+      "where": "EuroLeague TV",
+      "source": "EuroLeague"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "19:45",
+      "home": "Fenerbahçe",
+      "away": "Bayern Monaco",
+      "competition": "EUROLEAGUE",
+      "where": "EuroLeague TV",
+      "source": "EuroLeague"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "20:00",
+      "home": "Crvena Zvezda",
+      "away": "Hapoel Tel Aviv",
+      "competition": "EUROLEAGUE",
+      "where": "EuroLeague TV",
+      "source": "EuroLeague"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "20:30",
+      "home": "Armani Olimpia Milano",
+      "away": "Virtus Bologna",
+      "competition": "EUROLEAGUE",
+      "where": "Sky Sport Uno / Sky Sport Basket / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "20:30",
+      "home": "Valencia Basket",
+      "away": "Baskonia",
+      "competition": "EUROLEAGUE",
+      "where": "EuroLeague TV",
+      "source": "EuroLeague"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "20:45",
+      "home": "Paris Basketball",
+      "away": "Partizan",
+      "competition": "EUROLEAGUE",
+      "where": "EuroLeague TV",
+      "source": "EuroLeague"
+    },
+    {
+      "date": "2026-09-29",
+      "time": "20:30",
+      "home": "Umana Reyer Venezia",
+      "away": "Skyliners Francoforte",
+      "competition": "EUROCUP",
+      "where": "Sky Sport Max / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-30",
+      "time": "18:00",
+      "home": "Bahcesehir Koleji",
+      "away": "BC Roma",
+      "competition": "EUROCUP",
+      "where": "Sky Sport Uno / Sky Sport Basket / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-30",
+      "time": "18:00",
+      "home": "Riga Zelli",
+      "away": "Derthona Tortona",
+      "competition": "EUROCUP",
+      "where": "Sky Sport Arena / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-30",
+      "time": "20:00",
+      "home": "Napoli Basket",
+      "away": "JL Bourg-en-Bresse",
+      "competition": "EUROCUP",
+      "where": "Sky Sport Uno / Sky Sport Max / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-30",
+      "time": "20:05",
+      "home": "Maccabi Tel Aviv",
+      "away": "Beşiktaş",
+      "competition": "EUROLEAGUE",
+      "where": "Sky / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-30",
+      "time": "20:15",
+      "home": "Panathinaikos",
+      "away": "ASVEL",
+      "competition": "EUROLEAGUE",
+      "where": "Sky Sport Basket / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-09-30",
+      "time": "21:00",
+      "home": "Maxima Roma",
+      "away": "Cluj-Napoca",
+      "competition": "EUROCUP",
+      "where": "Sky Sport Basket / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-10-01",
+      "time": "20:30",
+      "home": "Virtus Bologna",
+      "away": "Olympiacos",
+      "competition": "EUROLEAGUE",
+      "where": "Sky / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-10-01",
+      "time": "20:00",
+      "home": "Crvena Zvezda",
+      "away": "Anadolu Efes",
+      "competition": "EUROLEAGUE",
+      "where": "Sky / NOW",
+      "source": "Sky"
+    },
+    {
+      "date": "2026-10-02",
+      "time": "20:30",
+      "home": "Luiss Roma",
+      "away": "Benacquista Assicurazioni Latina",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "20:30",
+      "home": "Unieuro Forlì",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "20:30",
+      "home": "Gemini Mestre",
+      "away": "Libertas Livorno 1947",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "17:00",
+      "home": "Rimadesio Desio",
+      "away": "Siaz Basket Piazza Armerina",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "20:30",
+      "home": "Andrea Costa Imola",
+      "away": "Rucker San Vendemiano",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "21:00",
+      "home": "Paffoni Fulgor Basket Omegna",
+      "away": "Logiman Orzinuovi",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "16:00",
+      "home": "Elachem Vigevano 1955",
+      "away": "RSR Sebastiani Rieti",
+      "competition": "A2",
+      "where": "RaiSport HD / RaiPlay",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "16:15",
+      "home": "Virtus Costa Bologna",
+      "away": "Maxima Roma",
+      "competition": "LBA",
+      "where": "LBA TV / Sky Sport Basket",
+      "source": "LBA"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Valtur Brindisi",
+      "away": "Wegreenit Urania Milano",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Juvecaserta 2021",
+      "away": "Flats Service Fortitudo Bologna",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "CMT Orange Tools Pesaro",
+      "away": "Ferraroni Juvi Cremona 1952",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Lumos Pistoia Basket",
+      "away": "Reale Mutua Torino",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Dole Basket Rimini",
+      "away": "Halley Campania Avellino Basket",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Crifo Wines Ruvo di Puglia",
+      "away": "UEB Gesteco Cividale",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Banco di Sardegna Sassari",
+      "away": "La T Tecnica Gema Montecatini",
+      "competition": "A2",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "A2A Leonessa Brescia",
+      "away": "Moncada Energy Agrigento",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Adamant Ferrara",
+      "away": "Infodrive Capo d'Orlando",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "LuxArm Lumezzane",
+      "away": "SAE Scientifica Soevis Legnano Knights",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "UCC Assigeco Piacenza",
+      "away": "S4 Energia Vicenza",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Redel Reggio Calabria",
+      "away": "Fiorenzuola Bees",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "LTC Group Sangiorgese Basket",
+      "away": "TAV Treviglio Brianza Basket",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Felice Scandone Avellino",
+      "away": "Umana San Giobbe Chiusi",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Tema Sinergie Faenza",
+      "away": "Allianz Pazienza Cestistica San Severo",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Verodol CBD Pielle Livorno",
+      "away": "Ristopro Fabriano",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Basketball Club Lucca",
+      "away": "Fabo Herons Montecatini",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "PSA Napoli Est",
+      "away": "Consorzio Leonardo Dany Quarrata",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Solbat Golfo Piombino",
+      "away": "Virtus GVM Roma 1960",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "OraSì Ravenna",
+      "away": "Sendero Mens Sana Siena",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Liofilchem Roseto",
+      "away": "Consultinvest Loreto Pesaro",
+      "competition": "B",
+      "where": "LNP PASS",
+      "source": "LNP"
+    }
+  ]
+}

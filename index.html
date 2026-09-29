@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a"><title>Basket TV</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f5f7;color:#111827;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+header{background:#0f172a;color:#fff;padding:14px 12px;position:sticky;top:0;z-index:5}h1{margin:0;font-size:24px}.small{font-size:11px;opacity:.7}
+.bar{background:#fff;border-bottom:1px solid #ddd;overflow-x:auto;display:flex;gap:7px;padding:9px}.bar::-webkit-scrollbar{display:none}
+button{border:0;border-radius:18px;background:#e5e7eb;padding:9px 12px;font-weight:750;white-space:nowrap}button.on{background:#0f172a;color:#fff}
+main{max-width:720px;margin:auto;padding:10px}.title{font-size:19px;font-weight:850;margin:9px 2px 12px}.upd{font-size:11px;color:#6b7280;margin:0 2px 9px}
+.card{background:#fff;border-radius:15px;padding:13px;margin:9px 0;box-shadow:0 2px 8px #0001}.top{display:flex;justify-content:space-between}.time{font-size:21px;font-weight:850}.tag{font-size:11px;font-weight:800;background:#e5e7eb;border-radius:7px;padding:5px 7px}.teams{font-weight:750;font-size:16px;margin:6px 0}.where{font-size:14px;font-weight:750}.src{font-size:10px;color:#6b7280;margin-top:8px}.empty{text-align:center;color:#6b7280;padding:40px}
+</style></head><body>
+<header><h1>🏀 Basket TV <span class="small">BETA</span></h1><div class="small">Partite e dove vederle</div></header>
+<div class="bar" id="days"></div><div class="bar" id="filters"></div>
+<main id="app"></main>
+<script>
+const filters=["TUTTO","LBA","A2","B","EUROLEAGUE","EUROCUP"];
+const dates=["2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04"];
+let selected=new Date().toISOString().slice(0,10), filter="TUTTO";
+if(!dates.includes(selected)) selected="2026-09-29";
+const dayNames=["DOM","LUN","MAR","MER","GIO","VEN","SAB"];
+function dlabel(s){let d=new Date(s+"T00:00:00");return dayNames[d.getDay()]+" "+d.getDate()}
+const db={games:[]};
+async function load(){let r=await fetch("data.json?"+Date.now());Object.assign(db,await r.json());render()}
+function render(){
+document.querySelector("#days").innerHTML=dates.map(d=>`<button class="${d===selected?"on":""}" onclick="selected='${d}';render()">${dlabel(d)}</button>`).join("");
+document.querySelector("#filters").innerHTML=filters.map(f=>`<button class="${f===filter?"on":""}" onclick="filter='${f}';render()">${f}</button>`).join("");
+let list=db.games.filter(g=>g.date===selected&&(filter==="TUTTO"||g.competition===filter)).sort((a,b)=>a.time.localeCompare(b.time));
+let dt=new Date(selected+"T00:00:00");
+let title=dt.toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});
+document.querySelector("#app").innerHTML=`<div class="title">📅 ${title}</div><div class="upd">Dati aggiornati: ${db.updated_at||"—"}</div>`+
+(list.length?list.map(g=>`<div class="card"><div class="top"><div class="time">${g.time}</div><div class="tag">${g.competition}</div></div><div class="teams">${g.home} — ${g.away}</div><div class="where">📺 ${g.where}</div><div class="src">Fonte: ${g.source}</div></div>`).join(""):`<div class="empty">Nessuna partita trovata.</div>`);
+}
+load();
+</script></body></html>
