@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-09-30T19:05:04+00:00",
+  "updated_at": "2026-09-30T19:23:06+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16502,6 +16502,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Napoli Basket",
+      "away": "JL Bourg, diretta (21-20 al 12', 2Q)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Olimpia Milano",
       "away": "Virtus Bologna, diretta (dove in TV, preview, ore 20.30)",
       "competition": "LBA",
@@ -16691,6 +16700,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "PAOK",
+      "away": "Manresa: partita interrotta nel terzo quarto",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "Tezenis Verona",
       "away": "Bertram Derthona Tortona",
       "competition": "LBA",
@@ -16717,7 +16735,7 @@
     }
   ],
   "source_report": [
-    "LBA: 242 gare",
+    "LBA: 243 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
