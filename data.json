@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-09-30T22:38:15+00:00",
+  "updated_at": "2026-09-30T22:51:33+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16547,6 +16547,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Maxima Roma",
+      "away": "Cluj, diretta 4Q 35' 85-47",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Napoli Basket",
       "away": "JL Bourg, diretta (9-8 4' primo quarto)",
       "competition": "LBA",
@@ -16843,7 +16852,7 @@
     }
   ],
   "source_report": [
-    "LBA: 240 gare",
+    "LBA: 241 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
