@@ -36,7 +36,8 @@ const W=["DOM","LUN","MAR","MER","GIO","VEN","SAB"];
 let data={games:[]},selected=new Date(),filter="ALL";
 const $=s=>document.querySelector(s);
 function iso(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
-function buildDays(){const b=$("#days");b.innerHTML="";for(let i=-7;i<285;i++){const d=new Date(selected);d.setDate(d.getDate()+i);const x=document.createElement("button");x.className="day"+(!i?" active":"");x.innerHTML=`<b>${W[d.getDay()]}</b><span>${d.getDate()}</span>`;x.onclick=()=>{selected=d;render()};b.appendChild(x)}}
+function centerTodayDay(){const b=$("#days"),a=b.querySelector(".day.active");if(!a)return;requestAnimationFrame(()=>{a.scrollIntoView({behavior:"instant",block:"nearest",inline:"center"});const target=a.offsetLeft-(b.clientWidth-a.offsetWidth)/2;b.scrollLeft=Math.max(0,target);setTimeout(()=>{const aa=b.querySelector(".day.active");if(aa){aa.scrollIntoView({behavior:"instant",block:"nearest",inline:"center"});b.scrollLeft=Math.max(0,aa.offsetLeft-(b.clientWidth-aa.offsetWidth)/2)}},60)})}
+function buildDays(){const b=$("#days");b.innerHTML="";for(let i=-7;i<285;i++){const d=new Date(selected);d.setDate(d.getDate()+i);const x=document.createElement("button");x.className="day"+(!i?" active":"");x.innerHTML=`<b>${W[d.getDay()]}</b><span>${d.getDate()}</span>`;x.onclick=()=>{selected=new Date(d);render()};b.appendChild(x)}centerTodayDay()}
 function buildFilters(){const b=$("#filters");b.innerHTML="";COMP.forEach(([k,l])=>{const x=document.createElement("button");x.className="filter"+(k===filter?" active":"");x.textContent=l;x.onclick=()=>{filter=k;render()};b.appendChild(x)})}
 function render(){
  buildDays();buildFilters();
