@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-01T18:58:10+00:00",
+  "updated_at": "2026-10-01T19:13:26+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16792,6 +16792,15 @@
       "time": "",
       "home": "LIVE Virtus Bologna",
       "away": "Olympiacos (diretta, ore 20:30, preview e dove in TV)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
+      "home": "LIVE Virtus Bologna",
+      "away": "Olympiacos, diretta",
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
