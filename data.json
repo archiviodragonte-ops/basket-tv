@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-02T21:09:12+00:00",
+  "updated_at": "2026-10-02T21:25:25+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16511,6 +16511,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Baskonia",
+      "away": "Olimpia Milano: diretta (28-18 con 7:00, 2Q)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Baskonia Vitoria",
       "away": "Armani Olimpia Milano: preview, dove in TV, diretta",
       "competition": "LBA",
@@ -16987,7 +16996,7 @@
     }
   ],
   "source_report": [
-    "LBA: 240 gare",
+    "LBA: 241 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
