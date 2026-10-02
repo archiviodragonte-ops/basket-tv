@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-02T20:13:21+00:00",
+  "updated_at": "2026-10-02T20:28:13+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16495,6 +16495,15 @@
       "time": "",
       "home": "LIVE Baskonia",
       "away": "Olimpia Milano: diretta (20-11 con 3:20, 1Q)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
+      "home": "LIVE Baskonia",
+      "away": "Olimpia Milano: diretta (42-31 con 1:30, 2Q)",
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
