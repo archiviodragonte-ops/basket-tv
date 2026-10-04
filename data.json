@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-03T21:20:59+00:00",
+  "updated_at": "2026-10-04T02:48:33+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16475,6 +16475,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Aquila Trento",
+      "away": "Nutribullet Treviso: preview, dove in TV, diretta (20:00)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Bahcesehir",
       "away": "BC Roma, diretta (capitolini a -7 all'intervallo)",
       "competition": "LBA",
@@ -16729,6 +16738,15 @@
       "time": "",
       "home": "LIVE Napoli Basketball",
       "away": "UNA Hotels Reggio: preview, dove in TV, diretta",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
+      "home": "LIVE Napoli Basketball",
+      "away": "Reggio Emilia: preview, dove in TV, diretta",
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
