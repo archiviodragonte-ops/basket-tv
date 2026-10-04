@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-04T21:51:46+00:00",
+  "updated_at": "2026-10-04T22:02:03+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16493,6 +16493,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE BC Roma",
+      "away": "Tortona, diretta 4Q 87-59 33'",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Bahcesehir",
       "away": "BC Roma, diretta (capitolini a -7 all'intervallo)",
       "competition": "LBA",
@@ -16576,6 +16585,15 @@
       "time": "",
       "home": "LIVE Longobardi Scafati",
       "away": "Openjobmetis Varese: preview, dove in TV, diretta",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
+      "home": "LIVE Longobardi Scafati",
+      "away": "Openjobmetis Varese: diretta (23-32 13' secondo quarto)",
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
@@ -16997,6 +17015,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Virtus Bologna",
+      "away": "Maxima Roma, diretta (Mumbrù senza Alston)",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "Longobardi Scafati Basket",
       "away": "Maxima Roma",
       "competition": "LBA",
@@ -17095,7 +17122,7 @@
     }
   ],
   "source_report": [
-    "LBA: 242 gare",
+    "LBA: 244 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
