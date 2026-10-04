@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-04T21:34:50+00:00",
+  "updated_at": "2026-10-04T21:51:46+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16574,6 +16574,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Longobardi Scafati",
+      "away": "Openjobmetis Varese: preview, dove in TV, diretta",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Maxima Roma",
       "away": "Napoli Basket, diretta (dove in TV, preview)",
       "competition": "LBA",
@@ -17086,7 +17095,7 @@
     }
   ],
   "source_report": [
-    "LBA: 240 gare",
+    "LBA: 242 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
