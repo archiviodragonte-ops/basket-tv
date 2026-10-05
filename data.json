@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-05T07:54:27+00:00",
+  "updated_at": "2026-10-05T08:06:59+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16934,6 +16934,15 @@
     {
       "date": "2027-05-09",
       "time": "",
+      "home": "LIVE Tezenis Verona",
+      "away": "Armani Olimpia Milano: preview, dove in TV, diretta",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "LBA TV"
+    },
+    {
+      "date": "2027-05-09",
+      "time": "",
       "home": "LIVE Udine",
       "away": "Scafati: preview, dove in TV, diretta",
       "competition": "LBA",
@@ -17140,7 +17149,7 @@
     }
   ],
   "source_report": [
-    "LBA: 241 gare",
+    "LBA: 242 gare",
     "A2: 380 gare",
     "B: 612 gare",
     "EUROLEAGUE: 380 gare",
