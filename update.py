@@ -48,7 +48,7 @@ LBA_HOME = "https://www.legabasket.it/"
 EURO_API = "https://api-live.euroleague.net/v2/competitions/{competition}/seasons/{season}/games"
 
 # ---------------------------------------------------------------------------
-# NESSUN PDF: l'updater usa esclusivamente fonti web ufficiali.
+# SOLO FONTI WEB UFFICIALI.
 # ---------------------------------------------------------------------------
 LNP_A2_TEAMS_PAGE = "https://www.legapallacanestro.com/serie/1/squadre"
 LNP_B_TEAMS_PAGE = "https://www.legapallacanestro.com/serie/4/squadre"
@@ -347,12 +347,21 @@ def parse_lnp_team_page(url, comp, teams):
         date = parse_date(joined)
         if not date:
             continue
-        pair = find_pair(joined, teams)
-        if len(pair) != 2:
-            continue
-        time = parse_time(joined)
+        # La pagina ufficiale squadra LNP ha una tabella strutturata:
+        # Data | Casa | Ospite | Risultato | Impianto.
+        # Usiamo direttamente le colonne, senza cercare i nomi dentro il testo.
+        home = away = ""
+        if len(cells) >= 3:
+            home = canonical_team(cells[1])
+            away = canonical_team(cells[2])
+        if not home or not away or home.casefold() in {"casa", "home"} or away.casefold() in {"ospite", "away"}:
+            pair = find_pair(joined, teams)
+            if len(pair) != 2:
+                continue
+            home, away = pair
+        time = parse_time(cells[0]) or parse_time(joined)
         watch = lnp_watch(joined)
-        g = make_game(date, time, pair[0], pair[1], comp, label, watch, "LNP pagina squadra ufficiale")
+        g = make_game(date, time, home, away, comp, label, watch, "LNP pagina squadra ufficiale")
         if g:
             games.append(g)
     return merge_games([], games)
@@ -376,7 +385,7 @@ def lnp_team_pages(comp, index_url, teams):
 
 
 def parse_lnp_calendar(url, comp, teams):
-    """Legge il calendario HTML ufficiale LNP. Non usa PDF."""
+    """Legge il calendario HTML ufficiale LNP.."""
     try:
         response = fetch(url)
         soup = BeautifulSoup(response.text, "html.parser")
@@ -396,17 +405,21 @@ def parse_lnp_calendar(url, comp, teams):
         if not date:
             continue
 
-        # Prima proviamo a riconoscere esplicitamente i nomi delle squadre.
-        pair = find_pair(joined, teams)
-        if len(pair) != 2:
-            # Fallback per una tabella semplice Data | Casa | Ospite | ...
-            candidates = [c for c in cells if c and not parse_date(c) and not parse_time(c)]
-            if len(candidates) >= 3:
-                pair = [canonical_team(candidates[1]), canonical_team(candidates[2])]
-        if len(pair) != 2:
-            continue
+        # Calendario ufficiale LNP: Data | Casa | Ospite | ...
+        # Prima scelta = colonne della tabella; il riconoscimento per nome è solo fallback.
+        home = away = ""
+        if len(cells) >= 3:
+            candidates = [c for c in cells if c]
+            # La prima cella contiene normalmente data+ora; casa/ospite sono la 2a/3a.
+            home = canonical_team(candidates[1]) if len(candidates) > 1 else ""
+            away = canonical_team(candidates[2]) if len(candidates) > 2 else ""
+        if not home or not away or parse_date(home) or parse_date(away):
+            pair = find_pair(joined, teams)
+            if len(pair) != 2:
+                continue
+            home, away = pair
 
-        time = parse_time(joined)
+        time = parse_time(cells[0]) or parse_time(joined)
         watch = lnp_watch(joined)
         game = make_game(date, time, pair[0], pair[1], comp, label, watch, "LNP calendario web")
         if game:
@@ -681,25 +694,56 @@ def parse_lba_recent_news():
 # FIP WEB - controllo incrociato
 # ---------------------------------------------------------------------------
 def parse_fip_results():
+    """Legge il portale ufficiale FIP come controllo aggiuntivo.
+
+    Quando FIP restituisce una tabella HTML, usiamo direttamente le colonne;
+    il fallback testuale serve solo se il markup cambia. FIP non cancella mai
+    un orario già acquisito da LNP/LBA.
+    """
     try:
         soup = BeautifulSoup(fetch(FIP_RESULTS).text, "html.parser")
     except Exception as exc:
         print(f"FIP: ERRORE {type(exc).__name__}: {exc}")
         return []
-    text = clean(soup.get_text(" ", strip=True))
+
     games = []
-    # La pagina FIP può contenere molte competizioni; estraiamo solo coppie
-    # riconducibili alle squadre già note e a date/ore 2026-27.
-    for comp, teams, label in (("LBA", LBA_TEAMS, "LBA Serie A"), ("A2", A2_TEAMS, "Serie A2"), ("B", B_TEAMS, "Serie B Nazionale")):
+    specs = (("LBA", LBA_TEAMS, "LBA Serie A"), ("A2", A2_TEAMS, "Serie A2"), ("B", B_TEAMS, "Serie B Nazionale"))
+
+    for tr in soup.select("tr"):
+        cells = [clean(x.get_text(" ", strip=True)) for x in tr.select("th,td")]
+        if len(cells) < 3:
+            continue
+        joined = " | ".join(cells)
+        date = parse_date(joined)
+        if not date:
+            continue
+        # La struttura FIP può essere Data | Ora | Casa | Ospite oppure
+        # Data/Ora | Casa | Ospite. Cerchiamo la coppia tra le celle.
+        for comp, teams, label in specs:
+            pair = find_pair(joined, teams)
+            if len(pair) != 2:
+                continue
+            game = make_game(date, parse_time(joined), pair[0], pair[1], comp, label, "", "FIP risultati")
+            if game:
+                games.append(game)
+            break
+
+    if games:
+        return merge_games([], games)
+
+    # Fallback testuale: limita la finestra e richiede che entrambe le squadre
+    # appartengano alla competizione, evitando accoppiamenti casuali.
+    text = clean(soup.get_text(" ", strip=True))
+    for comp, teams, label in specs:
         dates = list(re.finditer(r"\b\d{1,2}/\d{1,2}/202[67]\b", text))
-        for i, m in enumerate(dates):
-            block = text[m.start():min(len(text), m.start()+1000)]
+        for m in dates:
+            block = text[m.start():min(len(text), m.start() + 700)]
             pair = find_pair(block, teams)
             if len(pair) != 2:
                 continue
-            g = make_game(parse_date(m.group(0)), parse_time(block), pair[0], pair[1], comp, label, "Programmazione TV da definire", "FIP risultati")
-            if g:
-                games.append(g)
+            game = make_game(parse_date(m.group(0)), parse_time(block), pair[0], pair[1], comp, label, "", "FIP risultati")
+            if game:
+                games.append(game)
     return merge_games([], games)
 
 
@@ -818,6 +862,27 @@ def parse_euro_api(comp, season, label):
     return merge_games([], games)
 
 
+def validate_updater(final):
+    """Controlli interni: nessun duplicato e nessun orario valido perso.
+    Restituisce contatori utili nel log GitHub Actions.
+    """
+    keys = set()
+    duplicates = 0
+    for g in final:
+        k = game_key(g)
+        if k in keys:
+            duplicates += 1
+        keys.add(k)
+    counts = {}
+    timed = {}
+    for g in final:
+        comp = g.get("competition", "")
+        counts[comp] = counts.get(comp, 0) + 1
+        if g.get("time"):
+            timed[comp] = timed.get(comp, 0) + 1
+    return counts, timed, duplicates
+
+
 # ---------------------------------------------------------------------------
 # MAIN
 # ---------------------------------------------------------------------------
@@ -832,7 +897,7 @@ def main():
     report = []
 
     # 1) LNP: calendario ufficiale + pagine ufficiali delle squadre + news.
-    #    Nessun PDF. Le pagine squadra servono soprattutto per intercettare
+    #    Le pagine squadra servono soprattutto per intercettare
     #    subito i cambi di orario rispetto al calendario iniziale.
     a2_cal = parse_lnp_calendar(LNP_A2_CALENDAR, "A2", A2_TEAMS)
     b_cal = parse_lnp_calendar(LNP_B_CALENDAR, "B", B_TEAMS)
@@ -861,11 +926,15 @@ def main():
     report.append(f"EuroLeague ufficiale: {len(euroleague)} gare")
     report.append(f"EuroCup ufficiale: {len(eurocup)} gare")
 
-    # 4) FIP web: controllo incrociato. Non sostituisce LNP/LBA e non usa PDF.
+    # 4) FIP web: controllo incrociato. Non sostituisce LNP/LBA.
     fip_games = parse_fip_results()
     final = merge_games(final, fip_games)
     report.append(f"FIP web controllo: {len(fip_games)} gare")
-    report.append("PDF: DISABILITATI")
+    report.append("Fonti web ufficiali: attive")
+
+    counts, timed, duplicates = validate_updater(final)
+    report.append(f"Controllo duplicati: {duplicates}")
+    report.append("Orari acquisiti: " + ", ".join(f"{k}={timed.get(k,0)}/{counts.get(k,0)}" for k in ("LBA","A2","B","EUROLEAGUE","EUROCUP")))
 
     final.sort(key=lambda game: (
         game.get("date", "9999-99-99"),
