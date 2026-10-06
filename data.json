@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-06T20:19:43+00:00",
+  "updated_at": "2026-10-06T20:37:14+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -18505,6 +18505,8 @@
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "FIP web controllo: 0 gare",
-    "PDF: DISABILITATI"
+    "Fonti web ufficiali: attive",
+    "Controllo duplicati: 0",
+    "Orari acquisiti: LBA=0/311, A2=25/407, B=29/619, EUROLEAGUE=380/380, EUROCUP=224/224"
   ]
 }
