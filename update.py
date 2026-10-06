@@ -1,72 +1,99 @@
 #!/usr/bin/env python3
-# Basket TV - updater
-# Fonti principali: pagine web ufficiali LBA e LNP.
-# I PDF LNP vengono usati SOLO come fallback per mantenere il calendario completo.
+# Basket TV - updater 2026/27
+#
+# PRIORITA' DELLE FONTI:
+#   - LNP A2/B: pagine web ufficiali LNP + articoli ufficiali LNP
+#   - LBA: sito web ufficiale LBA + articoli Preview ufficiali LBA
+#   - EuroLeague/EuroCup: feed ufficiale Euroleague Basketball
+#   - PDF LNP: SOLO FALLBACK per ricostruire il calendario se data.json non lo contiene
+#
+# Obiettivo:
+#   se una gara esiste gia' con ORARIO DA DEFINIRE, appena la fonte ufficiale
+#   pubblica l'orario il valore viene sostituito automaticamente senza duplicare
+#   la partita.
 
 import json
 import re
-import sys
 import subprocess
-from pathlib import Path
-from datetime import datetime, timezone
-from urllib.parse import urljoin
+import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import urljoin
 
 DATA = Path("data.json")
+TIMEOUT = 10
+USER_AGENT = (
+    "Mozilla/5.0 (compatible; BasketTV/3.0; "
+    "+https://github.com/archiviodragone-ops/basket-tv)"
+)
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; BasketTV/2.0; +https://github.com/archiviodragone-ops/basket-tv)",
+    "User-Agent": USER_AGENT,
     "Accept-Language": "it-IT,it;q=0.9,en;q=0.8",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
-TIMEOUT = 12
 
-LBA_CALENDAR_URL = "https://www.legabasket.it/calendario/calendar?selectedTab=schedule&selectedTeamId=all"
-LBA_NEWS_URL = "https://www.legabasket.it/news"
-LNP_NEWS_URL = "https://www.legapallacanestro.com/news?field_area_articolo_value=lnp_news&lnp_news_filter=All"
+# ---------------------------------------------------------------------------
+# FONTI UFFICIALI WEB
+# ---------------------------------------------------------------------------
+LNP_A2_CALENDAR = "https://www.legapallacanestro.com/serie/1/calendario"
+LNP_B_CALENDAR = "https://www.legapallacanestro.com/serie/4/calendario"
+LNP_A2_NEWS = "https://www.legapallacanestro.com/news?field_area_articolo_value=serie_a2&lnp_news_filter=All&page=1"
+LNP_B_NEWS = "https://www.legapallacanestro.com/news?field_area_articolo_value=serie_b&lnp_news_filter=All&page=1"
+LNP_NEWS = "https://www.legapallacanestro.com/news?field_area_articolo_value=lnp_news&lnp_news_filter=All&page=1"
 
+LBA_CALENDAR = "https://www.legabasket.it/calendario"
+LBA_NEWS = "https://www.legabasket.it/news?categoryId=all&filtersDate=&filtersSearchString=&page=1&teamId=all"
+LBA_HOME = "https://www.legabasket.it/"
+
+EURO_API = "https://api-live.euroleague.net/v2/competitions/{competition}/seasons/{season}/games"
+
+# ---------------------------------------------------------------------------
+# PDF SOLO FALLBACK
+# ---------------------------------------------------------------------------
 A2_PDF = "https://static.legapallacanestro.com/sites/default/files/editor/calendario_serie_a2_oww_2026-27.pdf"
 B_A_PDF = "https://static.legapallacanestro.com/sites/default/files/editor/calendario_b_naz._gir._a_2026-27.pdf"
 B_B_PDF = "https://static.legapallacanestro.com/sites/default/files/editor/calendario_b_naz._gir._b_2026-27.pdf"
-
-EUROLEAGUE_URL = "https://www.euroleaguebasketball.net/euroleague/"
-EUROCUP_URL = "https://www.euroleaguebasketball.net/eurocup/"
 
 
 def ensure_import(module, package=None):
     try:
         return __import__(module)
     except ImportError:
-        pkg = package or module
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", pkg])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", package or module])
         return __import__(module)
+
 
 requests = ensure_import("requests")
 bs4 = ensure_import("bs4", "beautifulsoup4")
 BeautifulSoup = bs4.BeautifulSoup
-pypdf = ensure_import("pypdf")
-PdfReader = pypdf.PdfReader
 
 
-def clean(s):
-    s = s or ""
-    s = s.replace("\xa0", " ")
-    return re.sub(r"\s+", " ", s).strip()
+# pypdf is not needed unless fallback PDF is actually required.
+def get_pdf_reader():
+    mod = ensure_import("pypdf")
+    return mod.PdfReader
 
 
-def parse_date(text):
-    text = clean(text)
-    m = re.search(r"\b(\d{1,2})[./-](\d{1,2})[./-](2026|2027)\b", text)
+def clean(value):
+    return re.sub(r"\s+", " ", str(value or "").replace("\xa0", " ")).strip()
+
+
+def parse_date(value):
+    s = clean(value)
+    m = re.search(r"\b(\d{1,2})[./-](\d{1,2})[./-](2026|2027)\b", s)
     if m:
         d, mo, y = map(int, m.groups())
         return f"{y:04d}-{mo:02d}-{d:02d}"
-    m = re.search(r"\b(2026|2027)-(\d{1,2})-(\d{1,2})\b", text)
+    m = re.search(r"\b(2026|2027)-(\d{1,2})-(\d{1,2})\b", s)
     if m:
         y, mo, d = map(int, m.groups())
         return f"{y:04d}-{mo:02d}-{d:02d}"
     return None
 
 
-def parse_time(text):
-    m = re.search(r"\b([01]?\d|2[0-3])[:.]([0-5]\d)\b", clean(text))
+def parse_time(value):
+    m = re.search(r"\b([01]?\d|2[0-3])[:.]([0-5]\d)\b", clean(value))
     return f"{int(m.group(1)):02d}:{m.group(2)}" if m else ""
 
 
@@ -74,8 +101,9 @@ def make_game(date, time, home, away, comp, label, watch="", source=""):
     home, away = clean(home), clean(away)
     if not date or not home or not away:
         return None
-    bad = {"casa", "ospite", "home", "away", "squadra di casa", "squadra ospite"}
-    if home.casefold() in bad or away.casefold() in bad:
+    if home.casefold() in {"casa", "ospite", "home", "away"}:
+        return None
+    if away.casefold() in {"casa", "ospite", "home", "away"}:
         return None
     return {
         "date": date,
@@ -89,14 +117,14 @@ def make_game(date, time, home, away, comp, label, watch="", source=""):
     }
 
 
-def fetch(url):
-    r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
-    r.raise_for_status()
-    return r
+def fetch(url, timeout=TIMEOUT):
+    response = requests.get(url, headers=HEADERS, timeout=timeout)
+    response.raise_for_status()
+    return response
 
 
 # ---------------------------------------------------------------------------
-# LNP: nomi ufficiali. Servono per riconoscere le due squadre negli articoli.
+# NOMI / ALIAS
 # ---------------------------------------------------------------------------
 A2_TEAMS = [
     "Halley Campania Avellino Basket", "Flats Service Fortitudo Bologna",
@@ -106,28 +134,34 @@ A2_TEAMS = [
     "Gemini Mestre", "Wegreenit Urania Milano", "La T Tecnica Gema Montecatini",
     "CMT Orange Tools Pesaro", "Victoria Libertas Pesaro", "Lumos Pistoia Basket",
     "RSR Sebastiani Rieti", "Dole Basket Rimini", "Crifo Wines Ruvo di Puglia",
-    "Banco di Sardegna Sassari", "Reale Mutua Torino", "ELAchem Vigevano 1955",
+    "Banco di Sardegna Sassari", "Reale Mutua Torino", "Elachem Vigevano 1955",
+    "ELAchem Vigevano 1955",
 ]
 
-B_A_TEAMS = [
+B_TEAMS = [
     "Moncada Energy Agrigento", "A2A Leonessa Brescia", "Infodrive Capo d'Orlando",
     "Rimadesio Desio", "Adamant Ferrara", "Fiorenzuola Bees", "Andrea Costa Imola",
-    "SAE Scientifica-Soevis Legnano Knights", "LuxArm Lumezzane",
-    "Paffoni Fulgor Basket Omegna", "Logiman Orzinuovi", "UCC Assigeco Piacenza",
-    "Siaz Basket Piazza Armerina", "Pallacanestro Viola Reggio Calabria",
-    "Myenergy Reggio Calabria", "Redel Reggio Calabria", "LTC Group Sangiorgese Basket",
-    "Rucker San Vendemiano", "TAV Treviglio Brianza Basket", "S4 Energia Vicenza",
-]
-
-B_B_TEAMS = [
-    "Felice Scandone Avellino", "Umana San Giobbe Chiusi", "Ristopro Fabriano",
-    "Tema Sinergie Faenza", "Benacquista Assicurazioni Latina", "Pielle Livorno",
-    "Verodol CBD Pielle Livorno", "Basketball Club Lucca", "FABO Herons Montecatini",
-    "Fabo Herons Montecatini", "PSA Napoli Est", "Consultinvest Loreto Pesaro",
-    "Solbat Golfo Piombino", "Consorzio Leonardo Dany Quarrata", "OraSì Ravenna",
-    "Luiss Roma", "Virtus GVM Roma 1960", "Liofilchem Roseto",
+    "SAE Scientifica-Soevis Legnano Knights", "SAE Scientifica Soevis Legnano Knights",
+    "LuxArm Lumezzane", "Luxarm Lumezzane", "Paffoni Fulgor Basket Omegna",
+    "Logiman Orzinuovi", "UCC Assigeco Piacenza", "Siaz Basket Piazza Armerina",
+    "Pallacanestro Viola Reggio Calabria", "Myenergy Reggio Calabria", "Redel Reggio Calabria",
+    "LTC Group Sangiorgese Basket", "Rucker San Vendemiano", "TAV Treviglio Brianza Basket",
+    "S4 Energia Vicenza", "Felice Scandone Avellino", "Umana San Giobbe Chiusi",
+    "Ristopro Fabriano", "Tema Sinergie Faenza", "Benacquista Assicurazioni Latina",
+    "Pielle Livorno", "Verodol CBD Pielle Livorno", "Basketball Club Lucca",
+    "FABO Herons Montecatini", "Fabo Herons Montecatini", "PSA Napoli Est",
+    "Consultinvest Loreto Pesaro", "Solbat Golfo Piombino", "Consorzio Leonardo Dany Quarrata",
+    "OraSì Ravenna", "Luiss Roma", "Virtus GVM Roma 1960", "Liofilchem Roseto",
     "Allianz Pazienza Cestistica San Severo", "Mens Sana Basketball Siena",
     "Sendero Mens Sana Siena",
+]
+
+LBA_TEAMS = [
+    "Acqua S.Bernardo Cantù", "APU Old Wild West Udine", "Armani Olimpia Milano",
+    "Nutribullet Treviso Basket", "Dolomiti Energia Trentino", "Napoli Basketball",
+    "UNA Hotels Reggio Emilia", "BC Roma", "Bertram Derthona Tortona",
+    "Longobardi Scafati Basket", "Openjobmetis Varese", "Pallacanestro Trieste",
+    "Umana Reyer Venezia", "Virtus Costa Bologna", "Maxima Roma", "Tezenis Verona",
 ]
 
 ALIASES = {
@@ -137,12 +171,11 @@ ALIASES = {
     "Elachem Vigevano 1955": "ELAchem Vigevano 1955",
     "LuxArm Lumezzane": "Luxarm Lumezzane",
     "SAE Scientifica Soevis Legnano Knights": "SAE Scientifica-Soevis Legnano Knights",
-    "SAE Scientifica-Soevis Legnano Knights": "SAE Scientifica-Soevis Legnano Knights",
-    "FABO Herons Montecatini": "FABO Herons Montecatini",
     "Fabo Herons Montecatini": "FABO Herons Montecatini",
-    "Verodol CBD Pielle Livorno": "Verodol CBD Pielle Livorno",
-    "Pielle Livorno": "Pielle Livorno",
-    "OraSì Ravenna": "OraSì Ravenna",
+    "Verodol CBD Pielle Livorno": "Pielle Livorno",
+    "Sendero Mens Sana Siena": "Mens Sana Basketball Siena",
+    "Myenergy Reggio Calabria": "Redel Reggio Calabria",
+    "Pallacanestro Viola Reggio Calabria": "Pallacanestro Viola Reggio Calabria",
 }
 
 MONTHS = {
@@ -151,465 +184,620 @@ MONTHS = {
     "novembre": 11, "dicembre": 12,
 }
 
-WEEKDAYS = r"Lunedì|Martedì|Mercoledì|Giovedì|Venerdì|Sabato|Domenica"
-
 
 def canonical_team(name):
+    name = clean(name)
     return ALIASES.get(name, name)
 
 
-def find_team_pair(text, teams):
-    found = []
-    low = text.casefold()
-    for name in sorted(set(teams), key=len, reverse=True):
-        pos = low.find(name.casefold())
-        if pos >= 0:
-            found.append((pos, canonical_team(name)))
-    found.sort(key=lambda x: x[0])
-    out = []
-    for pos, name in found:
-        if name not in [x[1] for x in out]:
-            out.append((pos, name))
-        if len(out) == 2:
-            break
-    return [x[1] for x in out]
-
-
-def watch_from_text(text, default="LNP Pass"):
-    low = clean(text).lower()
-    tv = []
-    if "raisport" in low:
-        tv.append("RaiSport HD")
-    if "rai play" in low or "raiplay" in low:
-        tv.append("Rai Play")
-    if "lnp pass" in low:
-        tv.append("LNP Pass")
-    if "twitch" in low:
-        tv.append("Twitch Italbasket")
-    return " · ".join(dict.fromkeys(tv)) or default
-
-
-def parse_lnp_date_time_blocks(text, comp, teams):
-    """Legge direttamente le righe degli articoli LNP.
-
-    Formato attuale tipico:
-      11/10/2026 18:00 Squadra-Squadra - Diretta streaming...
-
-    Supporta anche:
-      Domenica 11 ottobre, ore 18:00 Squadra-Squadra
-    """
-    text = clean(text)
-    games = []
-
-    # Formato numerico: è quello usato negli articoli "risultati + prossimo turno".
-    matches = list(re.finditer(r"\b(\d{1,2}/\d{1,2}/202[67])\s+([0-2]?\d:[0-5]\d)\b", text))
-    for i, m in enumerate(matches):
-        date = parse_date(m.group(1))
-        time = parse_time(m.group(2))
-        end = matches[i + 1].start() if i + 1 < len(matches) else min(len(text), m.end() + 700)
-        block = text[m.end():end]
-        pair = find_team_pair(block, teams)
-        if len(pair) == 2:
-            watch = watch_from_text(block)
-            label = "Serie A2" if comp == "A2" else "Serie B Nazionale"
-            g = make_game(date, time, pair[0], pair[1], comp, label, watch, "LNP web")
-            if g:
-                games.append(g)
-
-    # Formato editoriale "Domenica 11 ottobre, ore 18:00".
-    editorial = re.compile(
-        rf"\b({WEEKDAYS})\s+(\d{{1,2}})\s+([a-zà]+),?\s*(?:ore\s*)?(\d{{1,2}}[:.]\d{{2}})",
-        re.I,
-    )
-    for m in editorial.finditer(text):
-        mo = MONTHS.get(m.group(3).lower())
-        if not mo:
-            continue
-        year = 2026 if mo >= 9 else 2027
-        date = f"{year:04d}-{mo:02d}-{int(m.group(2)):02d}"
-        time = parse_time(m.group(4))
-        end = min(len(text), m.end() + 700)
-        block = text[m.end():end]
-        pair = find_team_pair(block, teams)
-        if len(pair) == 2:
-            watch = watch_from_text(block)
-            label = "Serie A2" if comp == "A2" else "Serie B Nazionale"
-            g = make_game(date, time, pair[0], pair[1], comp, label, watch, "LNP web")
-            if g:
-                games.append(g)
-
-    return games
-
-
-def parse_lnp_web():
-    """Fonte primaria LNP: articoli/pagine web ufficiali, non PDF."""
-    games = []
-    try:
-        r = fetch(LNP_NEWS_URL)
-        soup = BeautifulSoup(r.text, "html.parser")
-    except Exception as e:
-        print(f"LNP index ERRORE {type(e).__name__}: {e}")
-        return []
-
-    links = []
-    for a in soup.find_all("a", href=True):
-        href = urljoin(LNP_NEWS_URL, a.get("href"))
-        title = clean(a.get_text(" ", strip=True))
-        key = (title + " " + href).lower()
-        if not href.startswith("https://www.legapallacanestro.com/"):
-            continue
-        season_key = re.sub(r"[^0-9]", "", key)
-        if "202627" not in season_key:
-            continue
-        if "serie-a2" in key:
-            links.append(("A2", href))
-        elif "serie-b-nazionale" in key:
-            links.append(("B", href))
-
-    # Manteniamo soltanto gli articoli distinti e più recenti visibili nella pagina.
-    links = list(dict.fromkeys(links))
-    if not links:
-        print("LNP web: nessun articolo stagione 2026/27 trovato")
-        return []
-
-    def read_article(item):
-        comp, url = item
-        try:
-            rr = fetch(url)
-            ss = BeautifulSoup(rr.text, "html.parser")
-            title = clean(ss.title.get_text(" ", strip=True) if ss.title else "")
-            body = clean(ss.get_text(" ", strip=True))
-            teams = A2_TEAMS if comp == "A2" else (B_A_TEAMS + B_B_TEAMS)
-            return parse_lnp_date_time_blocks(body, comp, teams)
-        except Exception as e:
-            print(f"LNP articolo ERRORE {type(e).__name__}: {e}")
-            return []
-
-    # Parallelizziamo: niente più attese seriali da 45 secondi.
-    with ThreadPoolExecutor(max_workers=min(6, len(links))) as ex:
-        futures = [ex.submit(read_article, x) for x in links]
-        for f in as_completed(futures):
-            games.extend(f.result())
-
-    return merge_games([], games)
-
-
-# ---------------------------------------------------------------------------
-# PDF: SOLO fallback per non perdere partite. NON è la fonte degli orari.
-# ---------------------------------------------------------------------------
-def pdf_text(url):
-    r = fetch(url)
-    tmp = Path("_basket_tv_tmp.pdf")
-    tmp.write_bytes(r.content)
-    try:
-        reader = PdfReader(str(tmp))
-        return "\n".join(p.extract_text() or "" for p in reader.pages)
-    finally:
-        try:
-            tmp.unlink()
-        except OSError:
-            pass
-
-
-def find_two_teams(segment, teams):
-    found = []
-    low = segment.casefold()
-    for team in sorted(set(teams), key=len, reverse=True):
-        pos = low.find(team.casefold())
-        if pos >= 0:
-            found.append((pos, canonical_team(team)))
-    found.sort(key=lambda x: x[0])
-    out = []
-    for pos, team in found:
-        if team not in out:
-            out.append(team)
-        if len(out) == 2:
-            break
-    return out
-
-
-def parse_lnp_pdf(url, comp, label, teams):
-    try:
-        text = pdf_text(url).replace("\r", "\n")
-    except Exception as e:
-        print(f"PDF {comp} ERRORE {type(e).__name__}: {e}")
-        return []
-    dates = list(re.finditer(r"\b\d{1,2}[./-]\d{1,2}[./-](?:2026|2027)\b", text))
-    games = []
-    for i, m in enumerate(dates):
-        date = parse_date(m.group(0))
-        end = dates[i + 1].start() if i + 1 < len(dates) else len(text)
-        block = clean(text[m.end():end])
-        pair = find_two_teams(block, teams)
-        if len(pair) != 2:
-            continue
-        g = make_game(date, parse_time(block), pair[0], pair[1], comp, label, "LNP Pass", "LNP PDF fallback")
-        if g:
-            games.append(g)
-    return merge_games([], games)
-
-
-# ---------------------------------------------------------------------------
-# LBA web. La fonte primaria è il sito LBA; il parser legge news/preview
-# pubblicate dalla Lega. Il calendario precedente resta come salvagente.
-# ---------------------------------------------------------------------------
-LBA_TEAMS = [
-    "Acqua S.Bernardo Cantù", "APU Old Wild West Udine", "Armani Olimpia Milano",
-    "Nutribullet Treviso Basket", "Dolomiti Energia Trentino", "Napoli Basketball",
-    "UNA Hotels Reggio Emilia", "BC Roma", "Bertram Derthona Tortona",
-    "Longobardi Scafati Basket", "Openjobmetis Varese", "Pallacanestro Trieste",
-    "Umana Reyer Venezia", "Virtus Costa Bologna", "Maxima Roma", "Tezenis Verona",
-]
-
-
-def parse_lba_calendar():
-    """Fonte primaria LBA: calendario ufficiale web 2026/27.
-
-    LBA espone le giornate tramite la pagina calendario con i parametri
-    championshipTypeId=4 e year=2026. Leggiamo direttamente le tabelle web,
-    senza PDF. Se una giornata non viene restituita, viene semplicemente saltata.
-    """
-    urls = [
-        f"https://www.legabasket.it/calendario?championshipTypeId=4&matchDay={day}"
-        f"&phaseToShow=all&selectedTab=schedule&selectedTeamId=all&year=2026"
-        for day in range(1, 31)
-    ]
-
-    def read(url):
-        out = []
-        try:
-            r = fetch(url)
-            soup = BeautifulSoup(r.text, "html.parser")
-            for tr in soup.select("tr"):
-                cells = [clean(x.get_text(" ", strip=True)) for x in tr.select("th,td")]
-                if len(cells) < 4:
-                    continue
-                joined = " | ".join(cells)
-                date = parse_date(joined)
-                if not date:
-                    continue
-                time = parse_time(joined)
-                # Nella tabella LBA la struttura è normalmente:
-                # casa | risultato | ospite | data/ora | arbitri | palazzetto | TV...
-                candidates = []
-                for c in cells:
-                    if not c or parse_date(c) or parse_time(c):
-                        continue
-                    if re.fullmatch(r"[-–—]?(?:\d+\s*[-–—]\s*\d+|Conclusa|in programma)?", c, re.I):
-                        continue
-                    low = c.casefold()
-                    if any(x in low for x in ("arbitri", "palazzetto", "media", "extra")):
-                        continue
-                    candidates.append(c)
-                # Prima scelta: celle 0 e 2 della tabella ufficiale.
-                pair = []
-                if len(cells) >= 3:
-                    c0, c2 = cells[0], cells[2]
-                    if c0 and c2 and not parse_date(c0) and not parse_date(c2):
-                        if not parse_time(c0) and not parse_time(c2):
-                            pair = [c0, c2]
-                if len(pair) != 2:
-                    pair = candidates[:2]
-                if len(pair) != 2:
-                    continue
-                watch = "LBA TV"
-                low = joined.lower()
-                tv = []
-                if "skysportbasket" in low or "sky sport" in low:
-                    tv.append("Sky Sport")
-                if "lbatv" in low or "lba tv" in low:
-                    tv.append("LBA TV")
-                if "dazn" in low:
-                    tv.append("DAZN")
-                if "cielo" in low:
-                    tv.append("Cielo")
-                if tv:
-                    watch = " · ".join(dict.fromkeys(tv))
-                g = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", watch, "LBA web")
-                if g:
-                    out.append(g)
-        except Exception as e:
-            print(f"LBA calendario ERRORE {type(e).__name__}: {e}")
-        return out
-
-    games = []
-    with ThreadPoolExecutor(max_workers=8) as ex:
-        futures = [ex.submit(read, u) for u in urls]
-        for f in as_completed(futures):
-            games.extend(f.result())
-    return merge_games([], games)
-
-
-def parse_lba_web():
-    # Prima il calendario ufficiale. La sezione news resta solo un secondo
-    # canale di arricchimento se il calendario non espone qualche informazione.
-    games = parse_lba_calendar()
-    if games:
-        return games
-
-    # Fallback prudente: alcune versioni del sito LBA possono servire il
-    # calendario via JavaScript; in quel caso proviamo le news ufficiali.
-    try:
-        r = fetch(LBA_NEWS_URL)
-        soup = BeautifulSoup(r.text, "html.parser")
-    except Exception as e:
-        print(f"LBA news ERRORE {type(e).__name__}: {e}")
-        return []
-
-    links = []
-    for a in soup.find_all("a", href=True):
-        href = urljoin(LBA_NEWS_URL, a.get("href"))
-        if href.startswith("https://www.legabasket.it/"):
-            links.append(href)
-    links = list(dict.fromkeys(links))[:50]
-
-    def read(url):
-        out = []
-        try:
-            rr = fetch(url)
-            ss = BeautifulSoup(rr.text, "html.parser")
-            body = clean(ss.get_text(" ", strip=True))
-            for m in re.finditer(r"\b(\d{1,2}/\d{1,2}/202[67])\s+(?:Ore\s*)?(\d{1,2}[:.]\d{2})", body, re.I):
-                date = parse_date(m.group(1)); time = parse_time(m.group(2))
-                block = body[m.end():m.end()+400]
-                pair = find_team_pair(block, LBA_TEAMS)
-                if len(pair) == 2:
-                    g = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", "LBA TV", "LBA news")
-                    if g: out.append(g)
-        except Exception:
-            pass
-        return out
-
-    with ThreadPoolExecutor(max_workers=8) as ex:
-        for f in as_completed([ex.submit(read, u) for u in links]):
-            games.extend(f.result())
-    return merge_games([], games)
-
-
-# ---------------------------------------------------------------------------
-# EuroLeague / EuroCup: conserva il comportamento prudente precedente.
-# ---------------------------------------------------------------------------
-def parse_euro(url, comp, label):
-    try:
-        r = fetch(url)
-        soup = BeautifulSoup(r.text, "html.parser")
-    except Exception as e:
-        print(f"{label} ERRORE {type(e).__name__}: {e}")
-        return []
-    games = []
-    for sc in soup.select('script[type="application/ld+json"]'):
-        raw = sc.string or sc.get_text()
-        try: obj = json.loads(raw)
-        except Exception: continue
-        objs = obj if isinstance(obj, list) else [obj]
-        for o in objs:
-            if not isinstance(o, dict) or o.get("@type") not in ("SportsEvent", "Event"): continue
-            start = str(o.get("startDate", ""))
-            date = parse_date(start) or (re.match(r"(\d{4}-\d\d-\d\d)", start).group(1) if re.match(r"(\d{4}-\d\d-\d\d)", start) else None)
-            if not date: continue
-            tm = re.search(r"T(\d\d:\d\d)", start); time = tm.group(1) if tm else ""
-            pair = re.split(r"\s+[-–—]\s+", clean(o.get("name", "")), maxsplit=1)
-            if len(pair) == 2:
-                g = make_game(date, time, pair[0], pair[1], comp, label, "Programmazione TV da definire", label)
-                if g: games.append(g)
-    return merge_games([], games)
-
-
-# ---------------------------------------------------------------------------
-# Merge intelligente: una partita è identificata da data + casa + ospite +
-# competizione. Un nuovo orario sostituisce quello vuoto del PDF.
-# ---------------------------------------------------------------------------
-def norm_team(s):
-    s = canonical_team(clean(s)).casefold()
+def norm_team(name):
+    s = canonical_team(name).casefold()
     s = re.sub(r"[^a-z0-9àèéìòù' ]+", " ", s)
     return re.sub(r"\s+", " ", s).strip()
 
 
-def game_key(g):
-    return (g.get("competition", ""), g.get("date", ""), norm_team(g.get("home", "")), norm_team(g.get("away", "")))
+def game_key(game):
+    return (
+        game.get("competition", ""),
+        game.get("date", ""),
+        norm_team(game.get("home", "")),
+        norm_team(game.get("away", "")),
+    )
 
 
 def merge_games(base, updates):
-    out = {game_key(g): dict(g) for g in base if g and game_key(g)[1]}
-    for g in updates:
-        if not g: continue
-        k = game_key(g)
-        if not k[1]: continue
-        if k not in out:
-            out[k] = dict(g)
+    """Merge per COMP + DATA + CASA + OSPITE, indipendentemente dall'orario."""
+    out = {}
+    for game in base or []:
+        if game and game_key(game)[1]:
+            out[game_key(game)] = dict(game)
+
+    for game in updates or []:
+        if not game:
             continue
-        old = out[k]
-        if g.get("time"):
-            old["time"] = g["time"]
-        if g.get("watch") and g.get("watch") != "Programmazione TV da definire":
-            old["watch"] = g["watch"]
-        if g.get("source"):
-            old["source"] = g["source"]
-        if g.get("competition_label"):
-            old["competition_label"] = g["competition_label"]
+        key = game_key(game)
+        if not key[1]:
+            continue
+        current = out.get(key)
+        if current is None:
+            out[key] = dict(game)
+            continue
+
+        if game.get("time"):
+            current["time"] = game["time"]
+        if game.get("watch") and game["watch"] != "Programmazione TV da definire":
+            current["watch"] = game["watch"]
+        if game.get("source"):
+            current["source"] = game["source"]
+        if game.get("competition_label"):
+            current["competition_label"] = game["competition_label"]
+
     return list(out.values())
 
 
-def dedupe(games):
+# ---------------------------------------------------------------------------
+# LNP WEB: calendario diretto + articoli ufficiali recenti
+# ---------------------------------------------------------------------------
+def find_pair(block, teams):
+    found = []
+    low = block.casefold()
+    for team in sorted(set(teams), key=len, reverse=True):
+        pos = low.find(team.casefold())
+        if pos >= 0:
+            found.append((pos, canonical_team(team)))
+    found.sort(key=lambda item: item[0])
+    result = []
+    for _, team in found:
+        if team not in result:
+            result.append(team)
+        if len(result) == 2:
+            break
+    return result
+
+
+def lnp_watch(text):
+    low = clean(text).casefold()
+    values = []
+    if "raisport" in low:
+        values.append("RaiSport HD")
+    if "rai play" in low or "raiplay" in low:
+        values.append("Rai Play")
+    if "lnp pass" in low:
+        values.append("LNP Pass")
+    if "twitch" in low:
+        values.append("Twitch Italbasket")
+    return " · ".join(dict.fromkeys(values)) or "LNP Pass"
+
+
+def parse_lnp_article_text(text, comp, teams):
+    text = clean(text)
+    label = "Serie A2" if comp == "A2" else "Serie B Nazionale"
+    games = []
+
+    # Formato attuale LNP: 11/10/2026 18:00 Squadra-Squadra ...
+    date_times = list(re.finditer(r"\b(\d{1,2}/\d{1,2}/202[67])\s+([01]?\d|2[0-3])[:.]([0-5]\d)\b", text))
+    for i, match in enumerate(date_times):
+        date = parse_date(match.group(1))
+        time = f"{int(match.group(2)):02d}:{match.group(3)}"
+        end = date_times[i + 1].start() if i + 1 < len(date_times) else min(len(text), match.end() + 900)
+        block = text[match.end():end]
+        pair = find_pair(block, teams)
+        if len(pair) == 2:
+            game = make_game(date, time, pair[0], pair[1], comp, label, lnp_watch(block), "LNP web")
+            if game:
+                games.append(game)
+
+    # Formato editoriale: Domenica 11 ottobre, ore 18:00 ...
+    pattern = re.compile(
+        r"\b(?:Lunedì|Martedì|Mercoledì|Giovedì|Venerdì|Sabato|Domenica)\s+"
+        r"(\d{1,2})\s+([A-Za-zÀ-ÿ]+),?\s*(?:ore\s*)?(\d{1,2}[:.]\d{2})",
+        re.I,
+    )
+    for match in pattern.finditer(text):
+        month = MONTHS.get(match.group(2).casefold())
+        if not month:
+            continue
+        year = 2026 if month >= 9 else 2027
+        date = f"{year:04d}-{month:02d}-{int(match.group(1)):02d}"
+        time = parse_time(match.group(3))
+        block = text[match.end():min(len(text), match.end() + 900)]
+        pair = find_pair(block, teams)
+        if len(pair) == 2:
+            game = make_game(date, time, pair[0], pair[1], comp, label, lnp_watch(block), "LNP web")
+            if game:
+                games.append(game)
+
     return merge_games([], games)
 
 
+def parse_lnp_calendar(url, comp, teams):
+    """Legge il calendario HTML ufficiale LNP. Non usa PDF."""
+    try:
+        response = fetch(url)
+        soup = BeautifulSoup(response.text, "html.parser")
+    except Exception as exc:
+        print(f"LNP {comp} calendario: ERRORE {type(exc).__name__}: {exc}")
+        return []
+
+    label = "Serie A2" if comp == "A2" else "Serie B Nazionale"
+    games = []
+
+    for tr in soup.select("tr"):
+        cells = [clean(td.get_text(" ", strip=True)) for td in tr.select("th,td")]
+        if len(cells) < 3:
+            continue
+        joined = " | ".join(cells)
+        date = parse_date(joined)
+        if not date:
+            continue
+
+        # Prima proviamo a riconoscere esplicitamente i nomi delle squadre.
+        pair = find_pair(joined, teams)
+        if len(pair) != 2:
+            # Fallback per una tabella semplice Data | Casa | Ospite | ...
+            candidates = [c for c in cells if c and not parse_date(c) and not parse_time(c)]
+            if len(candidates) >= 3:
+                pair = [canonical_team(candidates[1]), canonical_team(candidates[2])]
+        if len(pair) != 2:
+            continue
+
+        time = parse_time(joined)
+        watch = lnp_watch(joined)
+        game = make_game(date, time, pair[0], pair[1], comp, label, watch, "LNP calendario web")
+        if game:
+            games.append(game)
+
+    # Se il calendario viene servito senza righe <tr>, proviamo il testo della pagina.
+    if not games:
+        games.extend(parse_lnp_article_text(clean(soup.get_text(" ", strip=True)), comp, teams))
+
+    return merge_games([], games)
+
+
+def recent_lnp_articles(index_url, comp, teams):
+    """Prende SOLO gli articoli recenti della categoria interessata, non sei pagine."""
+    try:
+        response = fetch(index_url)
+        soup = BeautifulSoup(response.text, "html.parser")
+    except Exception as exc:
+        print(f"LNP {comp} news index: ERRORE {type(exc).__name__}: {exc}")
+        return []
+
+    candidates = []
+    seen = set()
+    for a in soup.find_all("a", href=True):
+        href = urljoin(index_url, a.get("href"))
+        title = clean(a.get_text(" ", strip=True))
+        key = (title + " " + href).casefold()
+        if not href.startswith("https://www.legapallacanestro.com/"):
+            continue
+        # Solo articoli che possono contenere programma/orari della stagione.
+        if "2026/27" not in key and "202627" not in re.sub(r"[^0-9]", "", key):
+            continue
+        if comp == "A2" and "serie-a2" not in key and "serie a2" not in key:
+            continue
+        if comp == "B" and "serie-b" not in key and "serie b" not in key:
+            continue
+        if href in seen:
+            continue
+        seen.add(href)
+        candidates.append((href, title))
+
+    # Privilegiamo preview/programmi/risultati, poi comunque limitiamo il lavoro.
+    def score(item):
+        title = item[1].casefold()
+        score_value = 0
+        for token in ("risultati", "così", "cosi", "preview", "giornata", "anteprima", "prossimo turno"):
+            if token in title:
+                score_value += 3
+        return -score_value
+
+    candidates.sort(key=score)
+    candidates = candidates[:6]
+
+    def read(item):
+        href, _ = item
+        try:
+            r = fetch(href)
+            s = BeautifulSoup(r.text, "html.parser")
+            body = clean(s.get_text(" ", strip=True))
+            return parse_lnp_article_text(body, comp, teams)
+        except Exception as exc:
+            print(f"LNP {comp} articolo: ERRORE {type(exc).__name__}: {exc}")
+            return []
+
+    games = []
+    with ThreadPoolExecutor(max_workers=min(4, len(candidates) or 1)) as pool:
+        futures = [pool.submit(read, item) for item in candidates]
+        for future in as_completed(futures):
+            games.extend(future.result())
+    return merge_games([], games)
+
+
+# ---------------------------------------------------------------------------
+# LBA WEB
+# ---------------------------------------------------------------------------
+def lba_watch(text):
+    low = clean(text).casefold()
+    tv = []
+    if "sky sport" in low or "skysportbasket" in low:
+        tv.append("Sky Sport")
+    if "cielo" in low:
+        tv.append("Cielo")
+    if "dazn" in low:
+        tv.append("DAZN")
+    if "lbatv" in low or "lba tv" in low:
+        tv.append("LBA TV")
+    return " · ".join(dict.fromkeys(tv)) or "LBA TV"
+
+
+def next_weekday_date(reference_date, weekday_name):
+    """Restituisce la prossima data con il giorno indicato, rispetto a publication date."""
+    names = {
+        "lunedì": 0, "lunedi": 0, "martedì": 1, "martedi": 1,
+        "mercoledì": 2, "mercoledi": 2, "giovedì": 3, "giovedi": 3,
+        "venerdì": 4, "venerdi": 4, "sabato": 5, "domenica": 6,
+    }
+    target = names.get(weekday_name.casefold())
+    if target is None:
+        return None
+    try:
+        base = datetime.strptime(reference_date, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+    delta = (target - base.weekday()) % 7
+    # Nei Preview LBA "sabato" normalmente indica il giorno successivo della settimana.
+    if delta == 0:
+        delta = 7
+    from datetime import timedelta
+    d = base + timedelta(days=delta)
+    return d.isoformat()
+
+
+def extract_lba_pair(text):
+    """Trova una coppia LBA usando l'elenco ufficiale delle squadre."""
+    low = clean(text).casefold()
+    found = []
+    for team in sorted(LBA_TEAMS, key=len, reverse=True):
+        pos = low.find(team.casefold())
+        if pos >= 0:
+            found.append((pos, team))
+    found.sort(key=lambda item: item[0])
+    unique = []
+    for pos, team in found:
+        if team not in unique:
+            unique.append(team)
+        if len(unique) == 2:
+            break
+    return unique
+
+
+def parse_lba_text(text, reference_date=None):
+    text = clean(text)
+    games = []
+
+    # 1) Formato esplicito con data:
+    #    "11/10/2026 ... Acqua S.Bernardo Cantù - Napoli Basketball ... 15:00"
+    explicit = re.compile(
+        r"\b(\d{1,2}/\d{1,2}/202[67])\b.{0,220}?"
+        r"\b([01]?\d|2[0-3])[:.]([0-5]\d)\b",
+        re.I,
+    )
+    for match in explicit.finditer(text):
+        date = parse_date(match.group(1))
+        time = f"{int(match.group(2)):02d}:{match.group(3)}"
+        block = text[match.start():min(len(text), match.end() + 260)]
+        pair = extract_lba_pair(block)
+        if len(pair) == 2:
+            game = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", lba_watch(block), "LBA web")
+            if game:
+                games.append(game)
+
+    # 2) Preview LBA: "Umana Reyer Venezia - Acqua S.Bernardo Cantù sabato alle 20.00"
+    preview = re.compile(
+        r"\b(sabato|domenica|lunedì|lunedi|martedì|martedi|mercoledì|mercoledi|"
+        r"giovedì|giovedi|venerdì|venerdi)\b.{0,45}?\b(?:alle|ore)\s*(\d{1,2}[:.]\d{2})",
+        re.I,
+    )
+    for match in preview.finditer(text):
+        time = parse_time(match.group(2))
+        window_start = max(0, match.start() - 220)
+        window_end = min(len(text), match.end() + 180)
+        block = text[window_start:window_end]
+        pair = extract_lba_pair(block)
+        if len(pair) != 2:
+            continue
+        date = None
+        prefix = text[max(0, match.start() - 260):match.start()]
+        date = parse_date(prefix)
+        if not date and reference_date:
+            date = next_weekday_date(reference_date, match.group(1))
+        if not date:
+            continue
+        game = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", lba_watch(block), "LBA Preview web")
+        if game:
+            games.append(game)
+
+    return merge_games([], games)
+
+
+def parse_lba_calendar():
+    try:
+        response = fetch(LBA_CALENDAR)
+        soup = BeautifulSoup(response.text, "html.parser")
+    except Exception as exc:
+        print(f"LBA calendario: ERRORE {type(exc).__name__}: {exc}")
+        return []
+
+    games = []
+    # Tabella HTML, se disponibile.
+    for tr in soup.select("tr"):
+        cells = [clean(td.get_text(" ", strip=True)) for td in tr.select("th,td")]
+        joined = " | ".join(cells)
+        date = parse_date(joined)
+        if not date:
+            continue
+        pair = find_pair(joined, LBA_TEAMS)
+        if len(pair) != 2:
+            continue
+        time = parse_time(joined)
+        game = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", lba_watch(joined), "LBA calendario web")
+        if game:
+            games.append(game)
+
+    if games:
+        return merge_games([], games)
+
+    return parse_lba_text(clean(soup.get_text(" ", strip=True)))
+
+
+def parse_lba_recent_news():
+    urls = [LBA_NEWS, LBA_HOME]
+    games = []
+    article_urls = []
+    article_refs = {}
+
+    for url in urls:
+        try:
+            r = fetch(url)
+            soup = BeautifulSoup(r.text, "html.parser")
+        except Exception as exc:
+            print(f"LBA pagina: ERRORE {type(exc).__name__}: {exc}")
+            continue
+
+        # Anche il testo della pagina puo' contenere gia' le Preview con orario.
+        page_text = clean(soup.get_text(" ", strip=True))
+        games.extend(parse_lba_text(page_text))
+
+        for a in soup.find_all("a", href=True):
+            href = urljoin(url, a.get("href"))
+            title = clean(a.get_text(" ", strip=True))
+            if not href.startswith("https://www.legabasket.it/"):
+                continue
+            if not title:
+                continue
+            # Risali al contenitore dell'articolo per recuperare la data di pubblicazione.
+            container = a
+            for _ in range(4):
+                if container.parent is None:
+                    break
+                container = container.parent
+            block = clean(container.get_text(" ", strip=True))
+            key = (title + " " + block).casefold()
+            if "preview" not in key and "alle " not in key and "ore " not in key:
+                continue
+            # La data di pubblicazione LBA appare spesso come 24/09/2026 14:00.
+            pub = re.search(r"\b(\d{1,2}/\d{1,2}/202[67])\b", block)
+            ref = parse_date(pub.group(1)) if pub else None
+            if href not in article_refs:
+                article_refs[href] = ref
+
+    article_urls = list(article_refs.items())[:12]
+
+    def read(item):
+        href, ref = item
+        try:
+            r = fetch(href)
+            soup = BeautifulSoup(r.text, "html.parser")
+            body = clean(soup.get_text(" ", strip=True))
+            return parse_lba_text(body, reference_date=ref)
+        except Exception as exc:
+            print(f"LBA articolo: ERRORE {type(exc).__name__}: {exc}")
+            return []
+
+    with ThreadPoolExecutor(max_workers=min(6, len(article_urls) or 1)) as pool:
+        futures = [pool.submit(read, item) for item in article_urls]
+        for future in as_completed(futures):
+            games.extend(future.result())
+    return merge_games([], games)
+
+
+# ---------------------------------------------------------------------------
+# EUROLEGUE / EUROCUP - feed ufficiale
+# ---------------------------------------------------------------------------
+def deep_find(obj, names):
+    wanted = {n.casefold() for n in names}
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if str(key).casefold() in wanted and value not in (None, ""):
+                return value
+        for value in obj.values():
+            found = deep_find(value, names)
+            if found not in (None, ""):
+                return found
+    elif isinstance(obj, list):
+        for value in obj:
+            found = deep_find(value, names)
+            if found not in (None, ""):
+                return found
+    return None
+
+
+def euro_team(value):
+    if isinstance(value, dict):
+        return value.get("name") or value.get("clubName") or value.get("teamName") or value.get("shortName")
+    return value
+
+
+def parse_euro_api(comp, season, label):
+    url = EURO_API.format(competition=comp, season=season)
+    try:
+        response = fetch(url)
+        payload = response.json()
+    except Exception as exc:
+        print(f"{label}: ERRORE {type(exc).__name__}: {exc}")
+        return []
+
+    rows = payload
+    if isinstance(payload, dict):
+        rows = payload.get("data") or payload.get("games") or payload.get("results") or payload
+    if isinstance(rows, dict):
+        rows = rows.get("games") or rows.get("items") or []
+    if not isinstance(rows, list):
+        return []
+
+    games = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        home = euro_team(row.get("home") or row.get("local") or row.get("homeTeam"))
+        away = euro_team(row.get("away") or row.get("road") or row.get("awayTeam"))
+        home = home or deep_find(row, ["homeName", "localName", "homeTeamName"])
+        away = away or deep_find(row, ["awayName", "roadName", "awayTeamName"])
+        date_value = deep_find(row, ["date", "gameDate", "gameDateTime", "startDate", "startTime"])
+        date = parse_date(date_value)
+        if not date and isinstance(date_value, str):
+            iso = re.match(r"(2026|2027)-\d{2}-\d{2}", date_value)
+            date = iso.group(0) if iso else None
+        time_value = deep_find(row, ["time", "gameTime", "startTime", "startTimeLocal"])
+        time = parse_time(time_value or date_value)
+        if home and away and date:
+            game = make_game(date, time, home, away, "EUROLEAGUE" if comp == "E" else "EUROCUP", label, "Programmazione TV da definire", "Euroleague Basketball API")
+            if game:
+                games.append(game)
+    return merge_games([], games)
+
+
+# ---------------------------------------------------------------------------
+# PDF FALLBACK
+# ---------------------------------------------------------------------------
+def pdf_text(url):
+    response = fetch(url, timeout=15)
+    path = Path("_basket_tv_tmp.pdf")
+    path.write_bytes(response.content)
+    try:
+        reader = get_pdf_reader()(str(path))
+        return "\n".join(page.extract_text() or "" for page in reader.pages)
+    finally:
+        try:
+            path.unlink()
+        except OSError:
+            pass
+
+
+def parse_pdf_schedule(url, comp, label, teams):
+    try:
+        text = pdf_text(url).replace("\r", "\n")
+    except Exception as exc:
+        print(f"PDF {comp}: ERRORE {type(exc).__name__}: {exc}")
+        return []
+
+    dates = list(re.finditer(r"\b\d{1,2}[./-]\d{1,2}[./-](?:2026|2027)\b", text))
+    games = []
+    for i, match in enumerate(dates):
+        date = parse_date(match.group(0))
+        end = dates[i + 1].start() if i + 1 < len(dates) else len(text)
+        block = clean(text[match.end():end])
+        pair = find_pair(block, teams)
+        if len(pair) != 2:
+            continue
+        game = make_game(date, parse_time(block), pair[0], pair[1], comp, label, "LNP Pass", "LNP PDF fallback")
+        if game:
+            games.append(game)
+    return merge_games([], games)
+
+
+# ---------------------------------------------------------------------------
+# MAIN
+# ---------------------------------------------------------------------------
 def main():
     try:
         old = json.loads(DATA.read_text(encoding="utf-8")) if DATA.exists() else {}
     except Exception:
         old = {}
+
     old_games = old.get("games", [])
+    final = list(old_games)
+    report = []
 
-    # 1) Base calendario: PDF soltanto per avere tutte le gare anche quando
-    #    LNP non ha ancora pubblicato l'orario sul web.
-    pdf_games = []
-    pdf_sources = [
-        ("A2", "Serie A2", A2_PDF, A2_TEAMS),
-        ("B", "Serie B Nazionale", B_A_PDF, B_A_TEAMS),
-        ("B", "Serie B Nazionale", B_B_PDF, B_B_TEAMS),
-    ]
-    for comp, label, url, teams in pdf_sources:
-        pdf_games.extend(parse_lnp_pdf(url, comp, label, teams))
+    # 1) LNP: calendario web + articoli web recenti.
+    lnp_a2_calendar = parse_lnp_calendar(LNP_A2_CALENDAR, "A2", A2_TEAMS)
+    lnp_b_calendar = parse_lnp_calendar(LNP_B_CALENDAR, "B", B_TEAMS)
+    lnp_a2_news = recent_lnp_articles(LNP_A2_NEWS, "A2", A2_TEAMS)
+    lnp_b_news = recent_lnp_articles(LNP_B_NEWS, "B", B_TEAMS)
+    lnp_games = lnp_a2_calendar + lnp_b_calendar + lnp_a2_news + lnp_b_news
+    final = merge_games(final, lnp_games)
+    report.append(f"LNP A2 web: {len(lnp_a2_calendar) + len(lnp_a2_news)} aggiornamenti")
+    report.append(f"LNP B web: {len(lnp_b_calendar) + len(lnp_b_news)} aggiornamenti")
 
-    # 2) FONTI WEB UFFICIALI: hanno priorità assoluta sugli orari/TV.
-    lnp_games = parse_lnp_web()
-    lba_games = parse_lba_web()
-    euroleague_games = parse_euro(EUROLEAGUE_URL, "EUROLEAGUE", "EuroLeague")
-    eurocup_games = parse_euro(EUROCUP_URL, "EUROCUP", "EuroCup")
+    # 2) LBA: calendario web + Preview/news recenti.
+    lba_calendar = parse_lba_calendar()
+    lba_news = parse_lba_recent_news()
+    lba_games = lba_calendar + lba_news
+    final = merge_games(final, lba_games)
+    report.append(f"LBA web: {len(lba_games)} aggiornamenti")
 
-    # 3) Merge: vecchi dati -> calendario PDF -> aggiornamenti web.
-    final_games = merge_games(old_games, pdf_games)
-    final_games = merge_games(final_games, lnp_games)
-    final_games = merge_games(final_games, lba_games)
-    final_games = merge_games(final_games, euroleague_games)
-    final_games = merge_games(final_games, eurocup_games)
+    # 3) EuroLeague / EuroCup: feed ufficiale.
+    euroleague = parse_euro_api("E", "E2026", "EuroLeague")
+    eurocup = parse_euro_api("U", "U2026", "EuroCup")
+    final = merge_games(final, euroleague)
+    final = merge_games(final, eurocup)
+    report.append(f"EuroLeague ufficiale: {len(euroleague)} gare")
+    report.append(f"EuroCup ufficiale: {len(eurocup)} gare")
 
-    final_games.sort(key=lambda g: (
-        g.get("date", "9999-99-99"),
-        g.get("time") or "99:99",
-        g.get("competition", ""),
-        g.get("home", ""),
+    # 4) PDF SOLO se il database non contiene una competizione completa.
+    #    In condizioni normali non vengono nemmeno scaricati ogni 5 minuti.
+    counts = {}
+    for game in final:
+        counts[game.get("competition")] = counts.get(game.get("competition"), 0) + 1
+
+    fallback_specs = []
+    if counts.get("A2", 0) < 200:
+        fallback_specs.append(("A2", "Serie A2", A2_PDF, A2_TEAMS))
+    if counts.get("B", 0) < 300:
+        fallback_specs.extend([
+            ("B", "Serie B Nazionale", B_A_PDF, B_TEAMS),
+            ("B", "Serie B Nazionale", B_B_PDF, B_TEAMS),
+        ])
+
+    if fallback_specs:
+        fallback_games = []
+        with ThreadPoolExecutor(max_workers=min(3, len(fallback_specs))) as pool:
+            futures = [pool.submit(parse_pdf_schedule, *spec) for spec in fallback_specs]
+            for future in as_completed(futures):
+                fallback_games.extend(future.result())
+        final = merge_games(final, fallback_games)
+        report.append(f"PDF fallback usati: {len(fallback_games)} gare")
+    else:
+        report.append("PDF fallback: non necessari")
+
+    final.sort(key=lambda game: (
+        game.get("date", "9999-99-99"),
+        game.get("time") or "99:99",
+        game.get("competition", ""),
+        game.get("home", ""),
     ))
-
-    report = [
-        f"LNP web: {len(lnp_games)} aggiornamenti",
-        f"LBA web: {len(lba_games)} aggiornamenti",
-        f"A2 PDF fallback: {len([g for g in pdf_games if g.get('competition') == 'A2'])} gare",
-        f"B PDF fallback: {len([g for g in pdf_games if g.get('competition') == 'B'])} gare",
-        f"EuroLeague web: {len(euroleague_games)} gare",
-        f"EuroCup web: {len(eurocup_games)} gare",
-    ]
-    for line in report: print(line)
 
     out = {
         "season": "2026/27",
         "updated_at": datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds"),
-        "games": final_games,
+        "games": final,
         "source_report": report,
     }
     DATA.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Totale gare nel database: {len(final_games)}")
+    for line in report:
+        print(line)
+    print(f"Totale gare nel database: {len(final)}")
 
 
 if __name__ == "__main__":
