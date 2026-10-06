@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-06T07:02:33+00:00",
+  "updated_at": "2026-10-06T07:21:48+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -951,16 +951,6 @@
     {
       "date": "2026-10-04",
       "time": "18:00",
-      "home": "OraSì Ravenna",
-      "away": "Sendero Mens Sana Siena",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP web"
-    },
-    {
-      "date": "2026-10-04",
-      "time": "18:00",
       "home": "PSA Napoli Est",
       "away": "Consorzio Leonardo Dany Quarrata",
       "competition": "B",
@@ -1649,16 +1639,6 @@
       "time": "18:00",
       "home": "S4 Energia Vicenza",
       "away": "Adamant Ferrara",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP web"
-    },
-    {
-      "date": "2026-10-11",
-      "time": "18:00",
-      "home": "Sendero Mens Sana Siena",
-      "away": "Luiss Roma",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
@@ -18519,11 +18499,11 @@
     }
   ],
   "source_report": [
-    "LNP web: 51 aggiornamenti",
+    "LNP A2 web: 0 aggiornamenti",
+    "LNP B web: 0 aggiornamenti",
     "LBA web: 0 aggiornamenti",
-    "A2 PDF fallback: 380 gare",
-    "B PDF fallback: 612 gare",
-    "EuroLeague web: 0 gare",
-    "EuroCup web: 0 gare"
+    "EuroLeague ufficiale: 0 gare",
+    "EuroCup ufficiale: 0 gare",
+    "PDF fallback: non necessari"
   ]
 }
