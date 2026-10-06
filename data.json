@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-06T20:51:17+00:00",
+  "updated_at": "2026-10-06T21:00:19+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -18499,13 +18499,13 @@
     }
   ],
   "source_report": [
-    "LNP A2: calendario=0 squadre=0 news=0",
+    "FIP Serie A: 0 gare, orari=0",
+    "FIP A2: 0 gare, orari=0",
     "LNP B: calendario=0 squadre=0 news=0",
     "LBA: calendario=0 squadre=0 news=0",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
-    "FIP web controllo: 0 gare",
-    "Fonti web ufficiali: attive",
+    "Fonti web ufficiali: FIP A/A2 + LNP B + LBA + EuroLeague/EuroCup",
     "Controllo duplicati: 0",
     "Orari acquisiti: LBA=0/311, A2=25/407, B=29/619, EUROLEAGUE=380/380, EUROCUP=224/224"
   ]
