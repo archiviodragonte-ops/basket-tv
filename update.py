@@ -258,7 +258,8 @@ def parse_lnp_web():
         key = (title + " " + href).lower()
         if not href.startswith("https://www.legapallacanestro.com/"):
             continue
-        if "202627" not in key:
+        season_key = re.sub(r"[^0-9]", "", key)
+        if "202627" not in season_key:
             continue
         if "serie-a2" in key:
             links.append(("A2", href))
@@ -361,69 +362,127 @@ LBA_TEAMS = [
 ]
 
 
-def parse_lba_web():
+def parse_lba_calendar():
+    """Fonte primaria LBA: calendario ufficiale web 2026/27.
+
+    LBA espone le giornate tramite la pagina calendario con i parametri
+    championshipTypeId=4 e year=2026. Leggiamo direttamente le tabelle web,
+    senza PDF. Se una giornata non viene restituita, viene semplicemente saltata.
+    """
+    urls = [
+        f"https://www.legabasket.it/calendario?championshipTypeId=4&matchDay={day}"
+        f"&phaseToShow=all&selectedTab=schedule&selectedTeamId=all&year=2026"
+        for day in range(1, 31)
+    ]
+
+    def read(url):
+        out = []
+        try:
+            r = fetch(url)
+            soup = BeautifulSoup(r.text, "html.parser")
+            for tr in soup.select("tr"):
+                cells = [clean(x.get_text(" ", strip=True)) for x in tr.select("th,td")]
+                if len(cells) < 4:
+                    continue
+                joined = " | ".join(cells)
+                date = parse_date(joined)
+                if not date:
+                    continue
+                time = parse_time(joined)
+                # Nella tabella LBA la struttura è normalmente:
+                # casa | risultato | ospite | data/ora | arbitri | palazzetto | TV...
+                candidates = []
+                for c in cells:
+                    if not c or parse_date(c) or parse_time(c):
+                        continue
+                    if re.fullmatch(r"[-–—]?(?:\d+\s*[-–—]\s*\d+|Conclusa|in programma)?", c, re.I):
+                        continue
+                    low = c.casefold()
+                    if any(x in low for x in ("arbitri", "palazzetto", "media", "extra")):
+                        continue
+                    candidates.append(c)
+                # Prima scelta: celle 0 e 2 della tabella ufficiale.
+                pair = []
+                if len(cells) >= 3:
+                    c0, c2 = cells[0], cells[2]
+                    if c0 and c2 and not parse_date(c0) and not parse_date(c2):
+                        if not parse_time(c0) and not parse_time(c2):
+                            pair = [c0, c2]
+                if len(pair) != 2:
+                    pair = candidates[:2]
+                if len(pair) != 2:
+                    continue
+                watch = "LBA TV"
+                low = joined.lower()
+                tv = []
+                if "skysportbasket" in low or "sky sport" in low:
+                    tv.append("Sky Sport")
+                if "lbatv" in low or "lba tv" in low:
+                    tv.append("LBA TV")
+                if "dazn" in low:
+                    tv.append("DAZN")
+                if "cielo" in low:
+                    tv.append("Cielo")
+                if tv:
+                    watch = " · ".join(dict.fromkeys(tv))
+                g = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", watch, "LBA web")
+                if g:
+                    out.append(g)
+        except Exception as e:
+            print(f"LBA calendario ERRORE {type(e).__name__}: {e}")
+        return out
+
     games = []
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        futures = [ex.submit(read, u) for u in urls]
+        for f in as_completed(futures):
+            games.extend(f.result())
+    return merge_games([], games)
+
+
+def parse_lba_web():
+    # Prima il calendario ufficiale. La sezione news resta solo un secondo
+    # canale di arricchimento se il calendario non espone qualche informazione.
+    games = parse_lba_calendar()
+    if games:
+        return games
+
+    # Fallback prudente: alcune versioni del sito LBA possono servire il
+    # calendario via JavaScript; in quel caso proviamo le news ufficiali.
     try:
         r = fetch(LBA_NEWS_URL)
         soup = BeautifulSoup(r.text, "html.parser")
     except Exception as e:
-        print(f"LBA index ERRORE {type(e).__name__}: {e}")
+        print(f"LBA news ERRORE {type(e).__name__}: {e}")
         return []
 
     links = []
     for a in soup.find_all("a", href=True):
         href = urljoin(LBA_NEWS_URL, a.get("href"))
-        title = clean(a.get_text(" ", strip=True))
-        key = (title + " " + href).lower()
-        if href.startswith("https://www.legabasket.it/") and "/news?id=" in href:
+        if href.startswith("https://www.legabasket.it/"):
             links.append(href)
-    links = list(dict.fromkeys(links))[:30]
-
-    # Oltre alla lista news, il sito LBA espone pagine squadra con il calendario
-    # completo. Se troviamo link squadra nella pagina news, li leggiamo.
-    for a in soup.find_all("a", href=True):
-        href = urljoin(LBA_NEWS_URL, a.get("href"))
-        if "/protagonisti/squadre/" in href and "/dettaglio" in href:
-            links.append(href)
-    links = list(dict.fromkeys(links))[:40]
+    links = list(dict.fromkeys(links))[:50]
 
     def read(url):
+        out = []
         try:
             rr = fetch(url)
             ss = BeautifulSoup(rr.text, "html.parser")
             body = clean(ss.get_text(" ", strip=True))
-            out = []
-            # Le pagine squadra LBA usano: 11/10/2026 Ore 15:00 Squadra Squadra
             for m in re.finditer(r"\b(\d{1,2}/\d{1,2}/202[67])\s+(?:Ore\s*)?(\d{1,2}[:.]\d{2})", body, re.I):
                 date = parse_date(m.group(1)); time = parse_time(m.group(2))
-                block = body[m.end():m.end()+350]
-                pair = find_two_teams(block, LBA_TEAMS)
+                block = body[m.end():m.end()+400]
+                pair = find_team_pair(block, LBA_TEAMS)
                 if len(pair) == 2:
-                    g = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", "LBA TV", "LBA web")
+                    g = make_game(date, time, pair[0], pair[1], "LBA", "LBA Serie A", "LBA TV", "LBA news")
                     if g: out.append(g)
-            # Preview/headline format: "Squadra - Squadra ... alle 20.30 (live su LBATV)"
-            for team1 in LBA_TEAMS:
-                for team2 in LBA_TEAMS:
-                    if team1 == team2: continue
-                    pat = re.compile(re.escape(team1) + r"\s*[-–—]\s*" + re.escape(team2) + r".{0,180}?\b(?:alle\s*)?(\d{1,2}[.:]\d{2})\b", re.I)
-                    for m in pat.finditer(body):
-                        around = body[max(0,m.start()-100):m.end()+120]
-                        dm = re.search(r"(\d{1,2})\s+(?:ottobre|novembre|dicembre|gennaio|febbraio|marzo|aprile|maggio)\b", around, re.I)
-                        if not dm: continue
-                        mo_name = re.search(r"ottobre|novembre|dicembre|gennaio|febbraio|marzo|aprile|maggio", dm.group(0), re.I).group(0).lower()
-                        mo = MONTHS[mo_name]; year = 2026 if mo >= 9 else 2027
-                        date = f"{year:04d}-{mo:02d}-{int(dm.group(1)):02d}"
-                        watch = "LBA TV" if "lbatv" in around.lower() or "lba tv" in around.lower() else "Programmazione TV da definire"
-                        g = make_game(date, parse_time(m.group(1)), team1, team2, "LBA", "LBA Serie A", watch, "LBA web")
-                        if g: out.append(g)
-            return out
         except Exception:
-            return []
+            pass
+        return out
 
-    if links:
-        with ThreadPoolExecutor(max_workers=min(8, len(links))) as ex:
-            for f in as_completed([ex.submit(read, u) for u in links]):
-                games.extend(f.result())
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        for f in as_completed([ex.submit(read, u) for u in links]):
+            games.extend(f.result())
     return merge_games([], games)
 
 
