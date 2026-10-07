@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-07T09:27:19+00:00",
+  "updated_at": "2026-10-07T10:44:18+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -1470,7 +1470,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP news ufficiali"
+      "source": "LNP web"
     },
     {
       "date": "2026-10-08",
@@ -1480,7 +1480,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP news ufficiali"
+      "source": "LNP web"
     },
     {
       "date": "2026-10-08",
@@ -2977,7 +2977,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP news ufficiali"
+      "source": "LNP web"
     },
     {
       "date": "2026-10-21",
@@ -10146,6 +10146,16 @@
     {
       "date": "2026-12-29",
       "time": "20:45",
+      "home": "Reale Mutua Torino",
+      "away": "UEB Gesteco Cividale",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2026-12-29",
+      "time": "20:45",
       "home": "FABO Herons Montecatini",
       "away": "Felice Scandone Avellino",
       "competition": "B",
@@ -11753,6 +11763,16 @@
       "competition": "EUROLEAGUE",
       "competition_label": "EuroLeague",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2027-01-12",
+      "time": "20:30",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2027-01-12",
@@ -14366,6 +14386,16 @@
     },
     {
       "date": "2027-02-07",
+      "time": "18:00",
+      "home": "Virtus GVM Roma 1960",
+      "away": "Basketball Club Lucca",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "PDF fallback PDF incorporato"
+    },
+    {
+      "date": "2027-02-07",
       "time": "",
       "home": "Paperdi Juvecaserta 2021",
       "away": "Juvecaserta 2021",
@@ -14429,16 +14459,6 @@
       "time": "",
       "home": "Pallacanestro Viola Reggio Calabria",
       "away": "S4 Energia Vicenza",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2027-02-07",
-      "time": "",
-      "home": "Virtus GVM Roma 1960",
-      "away": "Basketball Club Lucca",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
@@ -16372,6 +16392,36 @@
     },
     {
       "date": "2027-03-11",
+      "time": "13:00",
+      "home": "ELAchem Vigevano 1955",
+      "away": "Reale Mutua Torino",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-11",
+      "time": "13:00",
+      "home": "Ferraroni Juvi Cremona 1952",
+      "away": "UEB Gesteco Cividale",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-11",
+      "time": "13:00",
+      "home": "OraSì Ravenna",
+      "away": "Moncada Energy Agrigento",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-11",
       "time": "20:05",
       "home": "MACCABI RAPYD TEL AVIV",
       "away": "LDLC ASVEL VILLEURBANNE",
@@ -16417,6 +16467,16 @@
     },
     {
       "date": "2027-03-12",
+      "time": "16:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-12",
       "time": "20:00",
       "home": "CRVENA ZVEZDA MERIDIANBET BELGRADE",
       "away": "DUBAI BASKETBALL",
@@ -16459,6 +16519,26 @@
       "competition": "EUROLEAGUE",
       "competition_label": "EuroLeague",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2027-03-13",
+      "time": "16:30",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-13",
+      "time": "17:15",
+      "home": "Victoria Libertas Pesaro",
+      "away": "Valtur Brindisi",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "RaiSport HD · LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2027-03-14",
@@ -16531,6 +16611,36 @@
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
+    },
+    {
+      "date": "2027-03-15",
+      "time": "18:00",
+      "home": "Liofilchem Roseto",
+      "away": "TAV Treviglio Brianza Basket",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-16",
+      "time": "14:00",
+      "home": "FABO Herons Montecatini",
+      "away": "Liofilchem Roseto",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-16",
+      "time": "16:15",
+      "home": "Unieuro Forlì",
+      "away": "Flats Service Fortitudo Bologna",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "RaiSport HD · LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2027-03-18",
@@ -17651,6 +17761,16 @@
     },
     {
       "date": "2027-04-02",
+      "time": "12:00",
+      "home": "Libertas Livorno 1947",
+      "away": "Unieuro Forlì",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-04-02",
       "time": "20:30",
       "home": "FC BARCELONA",
       "away": "PANATHINAIKOS AKTOR ATHENS",
@@ -17765,6 +17885,16 @@
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2027-04-04",
+      "time": "15:30",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2027-04-04",
@@ -20846,21 +20976,32 @@
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
+    },
+    {
+      "date": "2027-06-10",
+      "time": "18:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     }
   ],
   "source_report": [
-    "FIP Serie A: 3 gare, orari=3",
-    "FIP A2: 6 gare, orari=6",
-    "LNP A2: calendario=0 squadre=0 news=23 crawler=381 pagine=150",
-    "LNP B: calendario=0 squadre=0 news=34 crawler=612 pagine=150",
-    "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=25",
+    "FIP Serie A: 3 gare, orari=3; crawler=0 pagine=500",
+    "FIP A2: 6 gare, orari=6; crawler=0 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=23 crawler=392 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=34 crawler=618 pagine=500",
+    "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
+    "PDF fallback: 927 gare lette, 1 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
-    "Fonti web ufficiali: FIP A/A2 + LNP A2/B (calendario, squadre, news) + LBA (FIP, calendario, squadre, gare, news) + EuroLeague/EuroCup",
+    "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=3/314, A2=389/505, B=617/753, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=3/314, A2=400/516, B=621/756, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=295",
     "ATTENZIONE A2: gare future senza orario=110",
-    "ATTENZIONE B: gare future senza orario=125"
+    "ATTENZIONE B: gare future senza orario=124"
   ]
 }
