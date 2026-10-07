@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-07T08:46:08+00:00",
+  "updated_at": "2026-10-07T09:00:25+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -100,7 +100,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP news"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
@@ -110,7 +110,77 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "17:00",
+      "home": "TAV Treviglio Brianza Basket",
+      "away": "Redel Reggio Calabria",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "17:30",
+      "home": "Infodrive Capo d'Orlando",
+      "away": "Luxarm Lumezzane",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Ferraroni Juvi Cremona 1952",
+      "away": "Valtur Brindisi",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Halley Campania Avellino Basket",
+      "away": "ELAchem Vigevano 1955",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "La T Tecnica Gema Montecatini",
+      "away": "Dole Basket Rimini",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Libertas Livorno 1947",
+      "away": "Lumos Pistoia Basket",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "RSR Sebastiani Rieti",
+      "away": "Paperdi Juvecaserta 2021",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
@@ -120,57 +190,137 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
-      "time": "",
-      "home": "Ferraroni Juvi Cremona 1952",
-      "away": "Valtur Brindisi",
+      "time": "18:00",
+      "home": "Sella Cento",
+      "away": "CMT Orange Tools Pesaro",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
-      "time": "",
-      "home": "Halley Campania Avellino Basket",
-      "away": "ELAchem Vigevano 1955",
+      "time": "18:00",
+      "home": "Wegreenit Urania Milano",
+      "away": "Banco di Sardegna Sassari",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
-      "time": "",
-      "home": "La T Tecnica Gema Montecatini",
-      "away": "Dole Basket Rimini",
-      "competition": "A2",
-      "competition_label": "Serie A2",
+      "time": "18:00",
+      "home": "Benacquista Assicurazioni Latina",
+      "away": "Tema Sinergie Faenza",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
-      "time": "",
-      "home": "Libertas Livorno 1947",
-      "away": "Lumos Pistoia Basket",
-      "competition": "A2",
-      "competition_label": "Serie A2",
+      "time": "18:00",
+      "home": "Consorzio Leonardo Dany Quarrata",
+      "away": "Pielle Livorno",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
-      "time": "",
-      "home": "RSR Sebastiani Rieti",
-      "away": "Paperdi Juvecaserta 2021",
-      "competition": "A2",
-      "competition_label": "Serie A2",
+      "time": "18:00",
+      "home": "Fiorenzuola Bees",
+      "away": "Rimadesio Desio",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Logiman Orzinuovi",
+      "away": "Adamant Ferrara",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Mens Sana Basketball Siena",
+      "away": "Basketball Club Lucca",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Moncada Energy Agrigento",
+      "away": "Andrea Costa Imola",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Ristopro Fabriano",
+      "away": "PSA Napoli Est",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Rucker San Vendemiano",
+      "away": "Paffoni Fulgor Basket Omegna",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "S4 Energia Vicenza",
+      "away": "A2A Leonessa Brescia",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "18:00",
+      "home": "Umana San Giobbe Chiusi",
+      "away": "OraSì Ravenna",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-09-27",
+      "time": "19:00",
+      "home": "Allianz Pazienza Cestistica San Severo",
+      "away": "Liofilchem Roseto",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-09-27",
@@ -195,46 +345,6 @@
     {
       "date": "2026-09-27",
       "time": "",
-      "home": "Wegreenit Urania Milano",
-      "away": "Banco di Sardegna Sassari",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Allianz Pazienza Cestistica San Severo",
-      "away": "Liofilchem Roseto",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Benacquista Assicurazioni Latina",
-      "away": "Tema Sinergie Faenza",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Consorzio Leonardo Dany Quarrata",
-      "away": "Pielle Livorno",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
       "home": "Consultinvest Loreto Pesaro",
       "away": "Luiss Roma",
       "competition": "B",
@@ -247,86 +357,6 @@
       "time": "",
       "home": "FABO Herons Montecatini",
       "away": "Solbat Golfo Piombino",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Fiorenzuola Bees",
-      "away": "Rimadesio Desio",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Infodrive Capo d'Orlando",
-      "away": "Luxarm Lumezzane",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Logiman Orzinuovi",
-      "away": "Adamant Ferrara",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Mens Sana Basketball Siena",
-      "away": "Basketball Club Lucca",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Moncada Energy Agrigento",
-      "away": "Andrea Costa Imola",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Ristopro Fabriano",
-      "away": "PSA Napoli Est",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Rucker San Vendemiano",
-      "away": "Paffoni Fulgor Basket Omegna",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "S4 Energia Vicenza",
-      "away": "A2A Leonessa Brescia",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
@@ -357,16 +387,6 @@
       "time": "",
       "home": "TAV Treviglio Brianza Basket",
       "away": "Pallacanestro Viola Reggio Calabria",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-09-27",
-      "time": "",
-      "home": "Umana San Giobbe Chiusi",
-      "away": "OraSì Ravenna",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
@@ -745,6 +765,16 @@
     {
       "date": "2026-10-02",
       "time": "20:30",
+      "home": "Luiss Roma",
+      "away": "Benacquista Assicurazioni Latina",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-02",
+      "time": "20:30",
       "home": "FC BAYERN MUNICH",
       "away": "PARTIZAN MOZZART BET BELGRADE",
       "competition": "EUROLEAGUE",
@@ -780,13 +810,53 @@
     },
     {
       "date": "2026-10-03",
+      "time": "17:00",
+      "home": "Rimadesio Desio",
+      "away": "Siaz Basket Piazza Armerina",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "20:30",
+      "home": "Gemini Mestre",
+      "away": "Libertas Livorno 1947",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-03",
       "time": "20:30",
       "home": "Unieuro Forlì",
       "away": "Sella Cento",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "20:30",
+      "home": "Andrea Costa Imola",
+      "away": "Rucker San Vendemiano",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-03",
+      "time": "21:00",
+      "home": "Paffoni Fulgor Basket Omegna",
+      "away": "Logiman Orzinuovi",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -795,8 +865,8 @@
       "away": "RSR Sebastiani Rieti",
       "competition": "A2",
       "competition_label": "Serie A2",
-      "watch": "LNP Pass",
-      "source": "LNP web"
+      "watch": "RaiSport HD · Rai Play",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -806,7 +876,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -816,7 +886,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -826,7 +896,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -836,7 +906,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -846,7 +916,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -856,7 +926,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -866,7 +936,17 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -876,7 +956,7 @@
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -886,7 +966,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -896,7 +976,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -906,7 +986,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -916,7 +996,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -926,7 +1006,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -936,7 +1016,17 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Luxarm Lumezzane",
+      "away": "SAE Scientifica-Soevis Legnano Knights",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -946,7 +1036,17 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "OraSì Ravenna",
+      "away": "Mens Sana Basketball Siena",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -956,7 +1056,17 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-04",
+      "time": "18:00",
+      "home": "Pielle Livorno",
+      "away": "Ristopro Fabriano",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -966,7 +1076,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -976,7 +1086,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -986,7 +1096,7 @@
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
-      "source": "LNP web"
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-04",
@@ -1061,26 +1171,6 @@
     {
       "date": "2026-10-04",
       "time": "",
-      "home": "Luxarm Lumezzane",
-      "away": "SAE Scientifica-Soevis Legnano Knights",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-10-04",
-      "time": "",
-      "home": "OraSì Ravenna",
-      "away": "Mens Sana Basketball Siena",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-10-04",
-      "time": "",
       "home": "Paffoni Fulgor Basket Omegna",
       "away": "Logiman Orzinuovi",
       "competition": "B",
@@ -1093,16 +1183,6 @@
       "time": "",
       "home": "Pallacanestro Viola Reggio Calabria",
       "away": "Fiorenzuola Bees",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-10-04",
-      "time": "",
-      "home": "Pielle Livorno",
-      "away": "Ristopro Fabriano",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
@@ -1351,6 +1431,26 @@
       "competition": "EUROLEAGUE",
       "competition_label": "EuroLeague",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2026-10-08",
+      "time": "20:30",
+      "home": "Consultinvest Loreto Pesaro",
+      "away": "Luiss Roma",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-08",
+      "time": "20:30",
+      "home": "Moncada Energy Agrigento",
+      "away": "Rucker San Vendemiano",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-08",
@@ -1857,6 +1957,56 @@
       "watch": "LBA TV"
     },
     {
+      "date": "2026-10-12",
+      "time": "20:30",
+      "home": "Valtur Brindisi",
+      "away": "Reale Mutua Torino",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-10-12",
+      "time": "20:45",
+      "home": "Libertas Livorno 1947",
+      "away": "RSR Sebastiani Rieti",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-10-13",
+      "time": "16:00",
+      "home": "Openjobmetis Varese",
+      "away": "Maxima Roma",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-10-13",
+      "time": "18:00",
+      "home": "Gemini Mestre",
+      "away": "Juvecaserta 2021",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-10-13",
+      "time": "18:00",
+      "home": "Tezenis Verona",
+      "away": "Openjobmetis Varese",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
       "date": "2026-10-13",
       "time": "19:00",
       "home": "BAHCESEHIR COLLEGE ISTANBUL",
@@ -1882,6 +2032,16 @@
       "competition": "EUROCUP",
       "competition_label": "EuroCup",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2026-10-13",
+      "time": "19:00",
+      "home": "Maxima Roma",
+      "away": "Pallacanestro Trieste",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
     },
     {
       "date": "2026-10-13",
@@ -2156,6 +2316,16 @@
     {
       "date": "2026-10-16",
       "time": "20:30",
+      "home": "Reale Mutua Torino",
+      "away": "Juvecaserta 2021",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-10-16",
+      "time": "20:30",
       "home": "FC BARCELONA",
       "away": "OLYMPIACOS PIRAEUS",
       "competition": "EUROLEAGUE",
@@ -2170,6 +2340,26 @@
       "competition": "EUROLEAGUE",
       "competition_label": "EuroLeague",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2026-10-16",
+      "time": "20:45",
+      "home": "Libertas Livorno 1947",
+      "away": "RSR Sebastiani Rieti",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-10-16",
+      "time": "21:00",
+      "home": "RSR Sebastiani Rieti",
+      "away": "Valtur Brindisi",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
     },
     {
       "date": "2026-10-16",
@@ -2658,6 +2848,26 @@
       "competition": "EUROCUP",
       "competition_label": "EuroCup",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2026-10-21",
+      "time": "20:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
+    },
+    {
+      "date": "2026-10-21",
+      "time": "20:00",
+      "home": "Liofilchem Roseto",
+      "away": "OraSì Ravenna",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-10-21",
@@ -18499,14 +18709,15 @@
     }
   ],
   "source_report": [
-    "FIP Serie A: 0 gare, orari=0",
-    "FIP A2: 0 gare, orari=0",
-    "LNP B: calendario=0 squadre=0 news=0",
-    "LBA: calendario=0 squadre=0 news=0",
+    "FIP Serie A: 3 gare, orari=3",
+    "FIP A2: 6 gare, orari=6",
+    "LNP A2: calendario=0 squadre=0 news=23",
+    "LNP B: calendario=0 squadre=0 news=34",
+    "LBA: calendario=0 squadre=0 gare=0 news=0",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
-    "Fonti web ufficiali: FIP A/A2 + LNP B + LBA + EuroLeague/EuroCup",
+    "Fonti web ufficiali: FIP A/A2 + LNP A2/B (calendario, squadre, news) + LBA (FIP, calendario, squadre, gare, news) + EuroLeague/EuroCup",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=0/311, A2=25/407, B=29/619, EUROLEAGUE=380/380, EUROCUP=224/224"
+    "Orari acquisiti: LBA=3/314, A2=41/417, B=52/627, EUROLEAGUE=380/380, EUROCUP=224/224"
   ]
 }
