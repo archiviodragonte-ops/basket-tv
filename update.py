@@ -42,7 +42,7 @@ LNP_B_NEWS = "https://www.legapallacanestro.com/news?field_area_articolo_value=s
 LNP_NEWS = "https://www.legapallacanestro.com/news?field_area_articolo_value=lnp_news&lnp_news_filter=All&page=1"
 LNP_NEWS_PAGE2 = "https://www.legapallacanestro.com/news?field_area_articolo_value=lnp_news&lnp_news_filter=All&page=2"
 
-LBA_CALENDAR = "https://www.legabasket.it/calendario"
+LBA_CALENDAR = "https://www.legabasket.it/calendario/1/serie-a"
 LBA_NEWS = "https://www.legabasket.it/news?categoryId=all&filtersDate=&filtersSearchString=&page=1&teamId=all"
 LBA_HOME = "https://www.legabasket.it/"
 
@@ -222,12 +222,16 @@ def game_key(game):
 
 def source_priority(source):
     s = clean(source).casefold()
+    if "lnp crawler" in s:
+        return 125
     if "lnp web" in s or "lnp news" in s:
         return 120
     if "lnp pagina squadra" in s:
         return 115
     if "fip risultati" in s:
         return 110
+    if "lba crawler" in s:
+        return 125
     if "lba pagina squadra" in s:
         return 120
     if "lba pagina gara" in s:
@@ -287,6 +291,103 @@ def merge_games(base, updates):
         g.pop("_priority", None)
     return list(out.values())
 
+
+# ---------------------------------------------------------------------------
+# CRAWLER STRUTTURALE DEI SITI UFFICIALI
+# ---------------------------------------------------------------------------
+# Non dipendiamo da un singolo URL "magico": partiamo dai nodi ufficiali
+# (calendario, squadre, news, risultati), seguiamo i link interni pertinenti
+# e interpretiamo tabelle/pagine che contengono coppie di squadre + data/ora.
+# Il crawler e' volutamente limitato al dominio ufficiale e a percorsi utili,
+# cosi' un aggiornamento ogni 5 minuti non diventa una scansione infinita.
+
+def crawl_official_site(seeds, domain, path_keywords, max_pages=140, max_depth=2):
+    queue = [(u, 0) for u in seeds]
+    seen = set()
+    pages = []
+    while queue and len(pages) < max_pages:
+        url, depth = queue.pop(0)
+        url = url.split('#', 1)[0]
+        if url in seen or depth > max_depth:
+            continue
+        if not url.startswith(domain):
+            continue
+        seen.add(url)
+        try:
+            response = fetch(url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+        except Exception:
+            continue
+        pages.append((url, soup))
+        if depth >= max_depth:
+            continue
+        for a in soup.find_all('a', href=True):
+            href = urljoin(url, a.get('href')).split('#', 1)[0]
+            if not href.startswith(domain) or href in seen:
+                continue
+            path = href.casefold()
+            label = clean(a.get_text(' ', strip=True)).casefold()
+            if any(k in path or k in label for k in path_keywords):
+                queue.append((href, depth + 1))
+    return pages
+
+
+def generic_page_games(soup, comp, label, teams, source):
+    games = []
+    # Prima le righe strutturate: sono le piu' affidabili.
+    for tr in soup.select('tr'):
+        cells = [clean(x.get_text(' ', strip=True)) for x in tr.select('th,td')]
+        if len(cells) < 2:
+            continue
+        joined = ' | '.join(cells)
+        date = parse_date(joined)
+        if not date:
+            continue
+        pair = find_pair(joined, teams)
+        if len(pair) != 2:
+            continue
+        g = make_game(date, parse_time(joined), pair[0], pair[1], comp, label,
+                      lnp_watch(joined) if comp in {'A2','B'} else lba_watch(joined), source)
+        if g:
+            games.append(g)
+    # Poi il testo completo, utile per preview/news/articoli.
+    text = clean(soup.get_text(' ', strip=True))
+    if comp == 'LBA':
+        games.extend(parse_lba_text(text))
+    else:
+        games.extend(parse_lnp_article_text(text, comp, teams))
+    return merge_games([], games)
+
+
+def crawl_lnp_relevant(comp):
+    if comp == 'A2':
+        seeds = [LNP_A2_CALENDAR, LNP_A2_TEAMS_PAGE, LNP_A2_NEWS, LNP_NEWS]
+        keywords = ['serie/1/', '/serie-a2', 'calendario', 'squadre', '/news', 'a2', 'fortitudo', 'forli']
+        teams = A2_TEAMS
+        label = 'Serie A2'
+    else:
+        seeds = [LNP_B_CALENDAR, LNP_B_TEAMS_PAGE, LNP_B_NEWS, LNP_NEWS]
+        keywords = ['serie/4/', '/serie-b', 'calendario', 'squadre', '/news', 'serie b', 'nazionale']
+        teams = B_TEAMS
+        label = 'Serie B Nazionale'
+    pages = crawl_official_site(seeds, 'https://www.legapallacanestro.com/', keywords,
+                                max_pages=150, max_depth=2)
+    games = []
+    for url, soup in pages:
+        games.extend(generic_page_games(soup, comp, label, teams, 'LNP crawler ufficiale'))
+    return merge_games([], games), len(pages)
+
+
+def crawl_lba_relevant():
+    seeds = [LBA_CALENDAR, LBA_TEAMS_PAGE, LBA_NEWS, LBA_HOME]
+    keywords = ['calendario', 'protagonisti/squadre/', '/game/', '/news', 'serie-a', '2026', '2027']
+    pages = crawl_official_site(seeds, 'https://www.legabasket.it/', keywords,
+                                max_pages=180, max_depth=2)
+    games = []
+    for url, soup in pages:
+        games.extend(generic_page_games(soup, 'LBA', 'LBA Serie A', LBA_TEAMS,
+                                         'LBA crawler ufficiale'))
+    return merge_games([], games), len(pages)
 
 # ---------------------------------------------------------------------------
 # LNP WEB: calendario diretto + articoli ufficiali recenti
@@ -1075,30 +1176,33 @@ def main():
     report.append(f"FIP Serie A: {fip_counts.get('LBA',0)} gare, orari={fip_timed.get('LBA',0)}")
     report.append(f"FIP A2: {fip_counts.get('A2',0)} gare, orari={fip_timed.get('A2',0)}")
 
-    # 2) A2: FIP + calendario/squadre LNP + LNP News generali (variazioni comprese).
+    # 2) A2: FIP + scansione strutturale delle sezioni ufficiali LNP.
     a2_cal = parse_lnp_calendar(LNP_A2_CALENDAR, "A2", A2_TEAMS)
     a2_teams = lnp_team_pages("A2", LNP_A2_TEAMS_PAGE, A2_TEAMS)
     a2_news = recent_lnp_articles(LNP_A2_NEWS, "A2", A2_TEAMS)
-    a2_games = a2_cal + a2_teams + a2_news
+    a2_crawl, a2_pages = crawl_lnp_relevant("A2")
+    a2_games = a2_cal + a2_teams + a2_news + a2_crawl
     final = merge_games(final, a2_games)
-    report.append(f"LNP A2: calendario={len(a2_cal)} squadre={len(a2_teams)} news={len(a2_news)}")
+    report.append(f"LNP A2: calendario={len(a2_cal)} squadre={len(a2_teams)} news={len(a2_news)} crawler={len(a2_crawl)} pagine={a2_pages}")
 
-    # 3) Serie B: calendario/squadre LNP + LNP News generali (variazioni comprese).
+    # 3) Serie B: calendario + squadre + news + scansione strutturale LNP.
     b_cal = parse_lnp_calendar(LNP_B_CALENDAR, "B", B_TEAMS)
     b_teams = lnp_team_pages("B", LNP_B_TEAMS_PAGE, B_TEAMS)
     b_news = recent_lnp_articles(LNP_B_NEWS, "B", B_TEAMS)
-    b_games = b_cal + b_teams + b_news
+    b_crawl, b_pages = crawl_lnp_relevant("B")
+    b_games = b_cal + b_teams + b_news + b_crawl
     final = merge_games(final, b_games)
-    report.append(f"LNP B: calendario={len(b_cal)} squadre={len(b_teams)} news={len(b_news)}")
+    report.append(f"LNP B: calendario={len(b_cal)} squadre={len(b_teams)} news={len(b_news)} crawler={len(b_crawl)} pagine={b_pages}")
 
-    # 4) LBA: FIP + calendario/news/pagine gara e squadra ufficiali.
+    # 4) LBA: FIP + calendario attuale /1/serie-a + squadre/gare/news + crawler.
     lba_calendar = parse_lba_calendar()
     lba_teams = parse_lba_official_team_pages()
     lba_games_pages = parse_lba_official_game_pages()
     lba_news = parse_lba_recent_news()
-    lba_games = lba_calendar + lba_teams + lba_games_pages + lba_news
+    lba_crawl, lba_pages = crawl_lba_relevant()
+    lba_games = lba_calendar + lba_teams + lba_games_pages + lba_news + lba_crawl
     final = merge_games(final, lba_games)
-    report.append(f"LBA: calendario={len(lba_calendar)} squadre={len(lba_teams)} gare={len(lba_games_pages)} news={len(lba_news)}")
+    report.append(f"LBA: calendario={len(lba_calendar)} squadre={len(lba_teams)} gare={len(lba_games_pages)} news={len(lba_news)} crawler={len(lba_crawl)} pagine={lba_pages}")
 
     # 3) EuroLeague / EuroCup: feed ufficiale.
     euroleague = parse_euro_api("E", "E2026", "EuroLeague")
@@ -1113,6 +1217,10 @@ def main():
     counts, timed, duplicates = validate_updater(final)
     report.append(f"Controllo duplicati: {duplicates}")
     report.append("Orari acquisiti: " + ", ".join(f"{k}={timed.get(k,0)}/{counts.get(k,0)}" for k in ("LBA","A2","B","EUROLEAGUE","EUROCUP")))
+    today_local = datetime.now().astimezone().date().isoformat()
+    for comp in ("LBA", "A2", "B"):
+        missing = [g for g in final if g.get("competition") == comp and g.get("date", "") >= today_local and not g.get("time")]
+        report.append(f"ATTENZIONE {comp}: gare future senza orario={len(missing)}")
 
     final.sort(key=lambda game: (
         game.get("date", "9999-99-99"),
