@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-08T04:56:38+00:00",
+  "updated_at": "2026-10-08T05:25:00+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -4009,6 +4009,16 @@
     {
       "date": "2026-10-30",
       "time": "20:30",
+      "home": "Wegreenit Urania Milano",
+      "away": "Dole Basket Rimini",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-10-30",
+      "time": "20:30",
       "home": "ANADOLU EFES ISTANBUL",
       "away": "PANATHINAIKOS AKTOR ATHENS",
       "competition": "EUROLEAGUE",
@@ -4035,7 +4045,7 @@
     },
     {
       "date": "2026-10-30",
-      "time": "20:45",
+      "time": "21:00",
       "home": "Sella Cento",
       "away": "UEB Gesteco Cividale",
       "competition": "A2",
@@ -17928,6 +17938,16 @@
     },
     {
       "date": "2027-04-03",
+      "time": "20:30",
+      "home": "Redel Reggio Calabria",
+      "away": "Paffoni Fulgor Basket Omegna",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2027-04-03",
       "time": "20:45",
       "home": "Liofilchem Roseto",
       "away": "Felice Scandone Avellino",
@@ -21042,14 +21062,14 @@
     "FIP Serie A: 5 gare, orari=5; crawler=0 pagine=500",
     "FIP A2: 9 gare, orari=9; crawler=0 pagine=500",
     "LNP A2: calendario=0 squadre=0 news=23 crawler=392 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=34 crawler=618 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=34 crawler=619 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=5/316, A2=403/519, B=621/756, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=5/316, A2=404/520, B=622/757, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=295",
     "ATTENZIONE A2: gare future senza orario=110",
     "ATTENZIONE B: gare future senza orario=124"
