@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-08T21:59:19+00:00",
+  "updated_at": "2026-10-08T22:34:08+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16602,6 +16602,16 @@
     },
     {
       "date": "2027-03-14",
+      "time": "17:15",
+      "home": "Pielle Livorno",
+      "away": "Virtus GVM Roma 1960",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "RaiSport HD · LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-03-14",
       "time": "",
       "home": "APU Old Wild West Udine",
       "away": "Virtus Bologna",
@@ -21061,15 +21071,15 @@
   "source_report": [
     "FIP Serie A: 5 gare, orari=5; crawler=0 pagine=500",
     "FIP A2: 9 gare, orari=9; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=23 crawler=392 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=34 crawler=618 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=22 crawler=392 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=34 crawler=619 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=5/316, A2=404/520, B=622/757, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=5/316, A2=404/520, B=623/758, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=295",
     "ATTENZIONE A2: gare future senza orario=110",
     "ATTENZIONE B: gare future senza orario=124"
