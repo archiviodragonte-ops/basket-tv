@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-09T04:52:04+00:00",
+  "updated_at": "2026-10-09T05:26:17+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -7075,6 +7075,16 @@
     {
       "date": "2026-11-29",
       "time": "17:00",
+      "home": "Valtur Brindisi",
+      "away": "ELAchem Vigevano 1955",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-29",
+      "time": "17:00",
       "home": "S4 Energia Vicenza",
       "away": "Infodrive Capo d'Orlando",
       "competition": "B",
@@ -7137,16 +7147,6 @@
       "time": "18:00",
       "home": "Reale Mutua Torino",
       "away": "Libertas Livorno 1947",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "LNP Pass",
-      "source": "LNP crawler ufficiale"
-    },
-    {
-      "date": "2026-11-29",
-      "time": "18:00",
-      "home": "Valtur Brindisi",
-      "away": "ELAchem Vigevano 1955",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
