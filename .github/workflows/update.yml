@@ -8,10 +8,10 @@ on:
     branches:
       - main
 
-# Un aggiornamento alla volta per main; ogni PR ha il proprio gruppo di verifica.
+# La nuova revisione di una PR sostituisce il test precedente; main resta serializzato.
 concurrency:
   group: basket-tv-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -37,7 +37,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Installa dipendenze
+      - name: Installa dipendenze Python
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -48,8 +48,11 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}-v1
 
+      # Evita l’installazione automatica delle dipendenze di sistema via apt, che può bloccarsi sui mirror Ubuntu.
+      # Le dipendenze Python vengono installate sopra; il browser ha un timeout dedicato.
       - name: Installa Chromium
-        run: python -m playwright install --with-deps chromium
+        timeout-minutes: 5
+        run: python -m playwright install chromium
 
       - name: Controlla sintassi Python
         run: python -m py_compile update.py update_legacy.py
@@ -78,7 +81,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Installa dipendenze
+      - name: Installa dipendenze Python
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -90,7 +93,8 @@ jobs:
           key: playwright-chromium-${{ runner.os }}-v1
 
       - name: Installa Chromium
-        run: python -m playwright install --with-deps chromium
+        timeout-minutes: 5
+        run: python -m playwright install chromium
 
       - name: Sincronizza main
         run: |
