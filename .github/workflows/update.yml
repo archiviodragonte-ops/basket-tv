@@ -3,9 +3,8 @@ name: Aggiornamento Basket TV
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/30 * * * *"
 
-# Evita che due aggiornamenti automatici corrano contemporaneamente.
 concurrency:
   group: basket-tv-update
   cancel-in-progress: false
@@ -16,6 +15,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -28,64 +28,55 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
 
       - name: Installa dipendenze
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          fi
+          pip install -r requirements.txt
 
-      # Prima di creare data.json ci assicuriamo di partire
-      # dall'ultima versione effettiva di main.
+      - name: Cache Chromium Playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-v1
+
+      - name: Installa Chromium
+        run: python -m playwright install --with-deps chromium
+
       - name: Sincronizza main
         run: |
           git fetch origin main
           git reset --hard origin/main
           git clean -fd
 
-      - name: Aggiorna calendario
+      - name: Aggiorna e valida calendario
         run: python update.py
 
       - name: Pubblica data aggiornata
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add data.json
-
           if git diff --cached --quiet; then
             echo "Nessuna modifica ai dati."
             exit 0
           fi
-
           git commit -m "Aggiornamento automatico calendario"
-
-          # Se main è cambiato mentre lo script lavorava, riallineiamo
-          # la base e rifacciamo l'aggiornamento prima del push.
           for attempt in 1 2 3; do
             git fetch origin main
-
             if git merge-base --is-ancestor origin/main HEAD; then
-              if git push origin HEAD:main; then
-                exit 0
-              fi
+              if git push origin HEAD:main; then exit 0; fi
             else
               echo "main è cambiato durante l'aggiornamento: riallineo e riprovo."
               git reset --hard origin/main
               python update.py
               git add data.json
-
-              if git diff --cached --quiet; then
-                echo "Nessuna modifica dopo il riallineamento."
-                exit 0
-              fi
-
+              if git diff --cached --quiet; then exit 0; fi
               git commit -m "Aggiornamento automatico calendario"
             fi
-
             sleep 2
           done
-
           echo "Impossibile pubblicare dopo 3 tentativi."
           exit 1

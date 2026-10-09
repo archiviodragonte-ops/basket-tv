@@ -1,24 +1,19 @@
-# Basket TV — versione definitiva
+# Basket TV
 
-Pagina web continua per LBA, Serie A2, Serie B Nazionale, EuroLeague ed EuroCup.
+Programmazione per LBA Serie A, Serie A2, Serie B Nazionale, EuroLeague ed EuroCup.
 
-## Aggiornamento automatico
-GitHub Actions esegue `update.py` ogni giorno alle **10:00** e alle **23:00** con fuso `Europe/Rome`. GitHub supporta i cron con timezone IANA. citeturn6search0
+## Aggiornamento
 
-## Pulsante nella pagina
-`AGGIORNA DATI` forza il caricamento del `data.json` più recente, bypassando la cache del browser. Non contiene token GitHub e quindi non espone credenziali.
+GitHub Actions è configurato per tentare l'aggiornamento ogni 30 minuti. Un singolo avvio può subire ritardi dovuti alla disponibilità dei siti o della piattaforma GitHub.
 
-## Fonti
-- LBA: calendario/competizioni ufficiali.
-- LNP: PDF ufficiali A2 e B Nazionale.
-- EuroLeague/EuroCup: feed ufficiale Euroleague Basketball, quando disponibile.
+## Fonti e controlli
 
-LBA espone nel calendario ufficiale data, ora e canali TV; per esempio la pagina ufficiale mostra ore e LBATV/Sky/Cielo per le gare programmate. citeturn0search0turn0search1
-LNP pubblica i calendari completi 2026/27 di A2 e B Nazionale. citeturn0search2turn1search0
+- Siti ufficiali LBA, LNP e FIP per il calendario e i riscontri incrociati.
+- Lettura del calendario LBA con browser headless quando l'HTML statico non espone gli orari.
+- PDF già incorporati nello storico `update_legacy.py` usati come fallback per completare orari mancanti.
+- Nessun abbinamento PDF viene effettuato quando le squadre/data/competizione non sono abbastanza simili o l'abbinamento è ambiguo.
+- Controllo della copertura degli orari delle gare imminenti; se la copertura è insufficiente, l'aggiornamento si interrompe prima di scrivere `data.json`.
 
+## Installazione
 
-## Aggiornamento automatico
-
-Il sito non ha un pulsante manuale. GitHub Actions esegue `update.py` automaticamente **ogni 30 minuti, tutti i giorni**, aggiornando `data.json`. Il sito visualizza i dati aggiornati alla successiva apertura/ricarica della pagina.
-
-Nota: GitHub segnala che gli avvii pianificati possono occasionalmente subire ritardi in periodi di forte carico.
+Estrarre il pacchetto nella cartella `Documenti\GitHub\basket-tv` e avviare `INSTALLA_BASKET_TV.bat`. Il programma ripristina i file pubblici correnti del repository e applica le correzioni. Non pubblica nulla su GitHub: le modifiche devono essere controllate in GitHub Desktop prima del commit.
