@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-09T08:17:51+00:00",
+  "updated_at": "2026-10-09T10:02:15+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -16361,6 +16361,16 @@
       "watch": "LBA TV"
     },
     {
+      "date": "2027-03-08",
+      "time": "17:30",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
       "date": "2027-03-09",
       "time": "20:00",
       "home": "BESIKTAS ISTANBUL",
@@ -17834,6 +17844,16 @@
       "time": "12:00",
       "home": "Libertas Livorno 1947",
       "away": "Unieuro Forlì",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2027-04-02",
+      "time": "12:00",
+      "home": "Unieuro Forlì",
+      "away": "Reale Mutua Torino",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
@@ -21079,7 +21099,7 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=5/316, A2=404/520, B=623/758, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=5/316, A2=406/522, B=623/758, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=295",
     "ATTENZIONE A2: gare future senza orario=110",
     "ATTENZIONE B: gare future senza orario=124"
