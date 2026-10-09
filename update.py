@@ -389,7 +389,8 @@ def parse_lba_calendar():
     print(f"LBA calendario/team browser: {len(dynamic_games)} gare grezze; calendari squadre={len(team_calendar_urls)}; prossime 14gg={timed}/{len(upcoming)} con orario")
     return result
 
-legacy.parse_lba_calendar = parse_lba_calendardef _fip_parse_rendered(html, comp, label, teams):
+legacy.parse_lba_calendar = parse_lba_calendar
+def _fip_parse_rendered(html, comp, label, teams):
     soup = legacy.BeautifulSoup(html or "", "html.parser")
     games = []
     for tr in soup.select("tr"):
