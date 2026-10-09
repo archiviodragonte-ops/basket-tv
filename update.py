@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Basket TV updater corretto.
 
 Il file storico viene conservato come update_legacy.py perché contiene i PDF
@@ -299,42 +299,97 @@ def _parse_lba_rendered_html(html, body_text=""):
 
 
 def parse_lba_calendar():
+    """Legge il calendario LBA e le pagine calendario delle singole squadre con Chromium.
+
+    Il calendario generale spesso mostra solo la giornata selezionata; le pagine
+    ufficiali delle squadre permettono di recuperare anche gli orari delle giornate
+    successive. Le 23:00 sulle gare future sono un segnaposto LBA, non un orario reale.
+    """
     static_games = []
     try:
         static_games = _original_parse_lba_calendar()
     except Exception as exc:
         print(f"LBA calendario statico: {type(exc).__name__}: {exc}")
-    timed = sum(bool(g.get("time")) for g in static_games)
-    if len(static_games) >= 8 and timed >= 6:
-        return static_games
+
+    dynamic_games = []
+    team_calendar_urls = set()
+    calendar_url = getattr(legacy, "LBA_CALENDAR", "https://www.legabasket.it/calendario/1/serie-a")
+    team_index_url = getattr(legacy, "LBA_TEAMS_PAGE", "https://www.legabasket.it/protagonisti/squadre")
+
     try:
+        from urllib.parse import urljoin, urlparse
         from playwright.sync_api import sync_playwright
+
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page(locale="it-IT")
-            page.goto(legacy.LBA_CALENDAR, wait_until="domcontentloaded", timeout=18000)
-            try:
-                page.wait_for_load_state("networkidle", timeout=4500)
-            except Exception:
-                pass
-            try:
-                page.wait_for_timeout(1200)
-                html = page.content()
-                text = page.locator("body").inner_text(timeout=4000)
-            finally:
-                browser.close()
-        dynamic_games = _parse_lba_rendered_html(html, text)
-        print(f"LBA calendario browser: {len(dynamic_games)} gare")
-        return merge_games(static_games, dynamic_games)
+            for url in (calendar_url, team_index_url):
+                try:
+                    response = page.goto(url, wait_until="domcontentloaded", timeout=18000)
+                    if response is not None and response.status >= 400:
+                        print(f"LBA browser salta {url}: HTTP {response.status}")
+                        continue
+                    page.wait_for_timeout(400)
+                    html = page.content()
+                    try:
+                        body_text = page.locator("body").inner_text(timeout=4000)
+                    except Exception:
+                        body_text = ""
+                    dynamic_games.extend(_parse_lba_rendered_html(html, body_text))
+
+                    if url == team_index_url:
+                        soup = legacy.BeautifulSoup(html, "html.parser")
+                        for a in soup.find_all("a", href=True):
+                            href = urljoin(team_index_url, a.get("href", "")).split("?", 1)[0]
+                            parsed = urlparse(href)
+                            if parsed.netloc.casefold() != "www.legabasket.it":
+                                continue
+                            path = parsed.path.rstrip("/")
+                            marker = "/protagonisti/squadre/"
+                            if marker not in path or path.endswith("/squadre"):
+                                continue
+                            tail = path.split(marker, 1)[1].split("/")
+                            if len(tail) < 3 or not tail[0].isdigit() or not tail[1].isdigit():
+                                continue
+                            if not path.endswith("/calendario"):
+                                path += "/calendario"
+                            team_calendar_urls.add(f"https://www.legabasket.it{path}")
+                except Exception as exc:
+                    print(f"LBA browser salta {url}: {type(exc).__name__}")
+
+            # Ogni calendario squadra contiene anche le prossime giornate, non solo quella corrente.
+            for url in sorted(team_calendar_urls)[:20]:
+                try:
+                    response = page.goto(url, wait_until="domcontentloaded", timeout=12000)
+                    if response is not None and response.status >= 400:
+                        continue
+                    page.wait_for_timeout(250)
+                    html = page.content()
+                    try:
+                        body_text = page.locator("body").inner_text(timeout=3000)
+                    except Exception:
+                        body_text = ""
+                    dynamic_games.extend(_parse_lba_rendered_html(html, body_text))
+                except Exception as exc:
+                    print(f"LBA calendario squadra salta {url}: {type(exc).__name__}")
+            browser.close()
     except Exception as exc:
         print(f"LBA browser non disponibile/non riuscito: {type(exc).__name__}: {exc}")
-        return static_games
 
+    # La LBA usa 23:00 come segnaposto in alcune righe future ancora da programmare.
+    today = datetime.now().astimezone().date().isoformat()
+    for game in dynamic_games:
+        if game.get("competition") == "LBA" and game.get("date", "") >= today and game.get("time") == "23:00":
+            game["time"] = ""
 
-legacy.parse_lba_calendar = parse_lba_calendar
+    result = merge_games(static_games, dynamic_games)
+    horizon = (datetime.now().astimezone().date() + timedelta(days=14)).isoformat()
+    upcoming = [g for g in result if g.get("competition") == "LBA" and today <= g.get("date", "") <= horizon]
+    timed = sum(bool(g.get("time")) for g in upcoming)
+    print(f"LBA calendario/team browser: {len(dynamic_games)} gare grezze; calendari squadre={len(team_calendar_urls)}; prossime 14gg={timed}/{len(upcoming)} con orario")
+    return result
 
-
-def _fip_parse_rendered(html, comp, label, teams):
+legacy.parse_lba_calendar = parse_lba_calendardef _fip_parse_rendered(html, comp, label, teams):
     soup = legacy.BeautifulSoup(html or "", "html.parser")
     games = []
     for tr in soup.select("tr"):
@@ -463,3 +518,4 @@ legacy.validate_updater = validate_updater
 
 if __name__ == "__main__":
     legacy.main()
+
