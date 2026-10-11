@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-11T22:07:41+00:00",
+  "updated_at": "2026-10-11T22:41:21+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -2689,6 +2689,16 @@
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-10-18",
+      "time": "18:00",
+      "home": "Siaz Basket Piazza Armerina",
+      "away": "UCC Assigeco Piacenza",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2026-10-18",
@@ -21131,15 +21141,15 @@
   "source_report": [
     "FIP Serie A: 5 gare, orari=5; crawler=0 pagine=500",
     "FIP A2: 9 gare, orari=9; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=22 crawler=390 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=33 crawler=584 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=20 crawler=389 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=33 crawler=585 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=5/316, A2=409/525, B=624/759, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=5/316, A2=409/525, B=625/760, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=295",
     "ATTENZIONE A2: gare future senza orario=110",
     "ATTENZIONE B: gare future senza orario=124"
