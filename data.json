@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-15T09:56:33+00:00",
+  "updated_at": "2026-10-15T10:39:36+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -7059,6 +7059,16 @@
       "competition": "EUROLEAGUE",
       "competition_label": "EuroLeague",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2026-11-24",
+      "time": "20:30",
+      "home": "Reale Mutua Torino",
+      "away": "Juvecaserta 2021",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2026-11-24",
@@ -21241,7 +21251,7 @@
   "source_report": [
     "FIP Serie A: 5 gare, orari=5; crawler=0 pagine=500",
     "FIP A2: 11 gare, orari=11; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=11 crawler=389 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=11 crawler=392 pagine=500",
     "LNP B: calendario=0 squadre=0 news=19 crawler=582 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
@@ -21249,7 +21259,7 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=8/319, A2=415/531, B=626/761, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=8/319, A2=416/532, B=626/761, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=287",
     "ATTENZIONE A2: gare future senza orario=107",
     "ATTENZIONE B: gare future senza orario=121"
