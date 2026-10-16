@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-16T06:01:59+00:00",
+  "updated_at": "2026-10-16T06:25:35+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -2463,8 +2463,8 @@
     {
       "date": "2026-10-17",
       "time": "20:30",
-      "home": "Flats Service Fortitudo Bologna",
-      "away": "La T Tecnica Gema Montecatini",
+      "home": "Valtur Brindisi",
+      "away": "Reale Mutua Torino",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
@@ -2472,9 +2472,9 @@
     },
     {
       "date": "2026-10-17",
-      "time": "20:30",
-      "home": "Valtur Brindisi",
-      "away": "Reale Mutua Torino",
+      "time": "20:45",
+      "home": "Flats Service Fortitudo Bologna",
+      "away": "La T Tecnica Gema Montecatini",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
@@ -21261,7 +21261,7 @@
   "source_report": [
     "FIP Serie A: 5 gare, orari=5; crawler=0 pagine=500",
     "FIP A2: 11 gare, orari=11; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=11 crawler=391 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=11 crawler=389 pagine=500",
     "LNP B: calendario=0 squadre=0 news=19 crawler=582 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
