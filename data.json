@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-18T20:20:01+00:00",
+  "updated_at": "2026-10-18T20:46:37+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -3789,6 +3789,16 @@
       "source": "FIP risultati ufficiali"
     },
     {
+      "date": "2026-10-26",
+      "time": "20:30",
+      "home": "Allianz Pazienza Cestistica San Severo",
+      "away": "Basketball Club Lucca",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
       "date": "2026-10-27",
       "time": "18:00",
       "home": "Libertas Livorno 1947",
@@ -4028,6 +4038,16 @@
     {
       "date": "2026-10-28",
       "time": "20:30",
+      "home": "A2A Leonessa Brescia",
+      "away": "Adamant Ferrara",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2026-10-28",
+      "time": "20:30",
       "home": "Adamant Ferrara",
       "away": "A2A Leonessa Brescia",
       "competition": "B",
@@ -4054,6 +4074,16 @@
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-10-28",
+      "time": "20:30",
+      "home": "Ristopro Fabriano",
+      "away": "OraSì Ravenna",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2026-10-28",
@@ -7103,12 +7133,42 @@
     {
       "date": "2026-11-24",
       "time": "20:30",
+      "home": "Juvecaserta 2021",
+      "away": "Ferraroni Juvi Cremona 1952",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "RaiSport HD · Rai Play",
+      "source": "LNP web"
+    },
+    {
+      "date": "2026-11-24",
+      "time": "20:30",
+      "home": "Juvecaserta 2021",
+      "away": "UEB Gesteco Cividale",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "RaiSport HD · Rai Play",
+      "source": "LNP web"
+    },
+    {
+      "date": "2026-11-24",
+      "time": "20:30",
       "home": "Reale Mutua Torino",
       "away": "Juvecaserta 2021",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-24",
+      "time": "20:30",
+      "home": "Solbat Golfo Piombino",
+      "away": "Tema Sinergie Faenza",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "RaiSport HD · Rai Play",
+      "source": "LNP web"
     },
     {
       "date": "2026-11-24",
@@ -21301,15 +21361,15 @@
   "source_report": [
     "FIP Serie A: 5 gare, orari=5; crawler=0 pagine=500",
     "FIP A2: 8 gare, orari=8; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=20 crawler=389 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=32 crawler=584 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=20 crawler=391 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=32 crawler=587 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=8/319, A2=418/534, B=630/764, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=8/319, A2=420/536, B=634/768, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=287",
     "ATTENZIONE A2: gare future senza orario=107",
     "ATTENZIONE B: gare future senza orario=120"
