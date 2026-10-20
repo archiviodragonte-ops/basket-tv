@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-20T03:12:00+00:00",
+  "updated_at": "2026-10-20T03:39:58+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -5389,6 +5389,16 @@
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
+    },
+    {
+      "date": "2026-11-10",
+      "time": "18:00",
+      "home": "La T Tecnica Gema Montecatini",
+      "away": "Libertas Livorno 1947",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
     },
     {
       "date": "2026-11-10",
@@ -21370,7 +21380,7 @@
   ],
   "source_report": [
     "FIP Serie A: 4 gare, orari=4; crawler=0 pagine=500",
-    "FIP A2: 8 gare, orari=8; crawler=0 pagine=500",
+    "FIP A2: 9 gare, orari=9; crawler=0 pagine=500",
     "LNP A2: calendario=0 squadre=0 news=20 crawler=390 pagine=500",
     "LNP B: calendario=0 squadre=0 news=32 crawler=587 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
@@ -21379,7 +21389,7 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=8/319, A2=421/537, B=634/768, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=8/319, A2=422/538, B=634/768, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=279",
     "ATTENZIONE A2: gare future senza orario=102",
     "ATTENZIONE B: gare future senza orario=116"
