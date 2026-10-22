@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-21T23:41:42+00:00",
+  "updated_at": "2026-10-22T00:07:41+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -21441,7 +21441,7 @@
     "Controllo duplicati: 0",
     "Orari acquisiti: LBA=9/320, A2=426/542, B=634/768, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=279",
-    "ATTENZIONE A2: gare future senza orario=102",
+    "ATTENZIONE A2: gare future senza orario=101",
     "ATTENZIONE B: gare future senza orario=116"
   ]
 }
