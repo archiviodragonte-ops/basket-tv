@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-27T06:48:50+00:00",
+  "updated_at": "2026-10-27T07:41:19+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -17155,21 +17155,21 @@
     {
       "date": "2027-03-16",
       "time": "14:00",
-      "home": "FABO Herons Montecatini",
-      "away": "Liofilchem Roseto",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
+      "home": "Unieuro Forlì",
+      "away": "Flats Service Fortitudo Bologna",
+      "competition": "A2",
+      "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP web"
     },
     {
       "date": "2027-03-16",
-      "time": "16:15",
-      "home": "Unieuro Forlì",
-      "away": "Flats Service Fortitudo Bologna",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "RaiSport HD · LNP Pass",
+      "time": "14:00",
+      "home": "FABO Herons Montecatini",
+      "away": "Liofilchem Roseto",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
       "source": "LNP web"
     },
     {
