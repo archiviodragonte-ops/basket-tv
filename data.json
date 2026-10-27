@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-27T10:50:24+00:00",
+  "updated_at": "2026-10-27T11:32:58+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -21539,8 +21539,8 @@
     }
   ],
   "source_report": [
-    "FIP Serie A: 4 gare, orari=4; crawler=0 pagine=500",
-    "FIP A2: 10 gare, orari=10; crawler=0 pagine=500",
+    "FIP Serie A: 3 gare, orari=3; crawler=0 pagine=500",
+    "FIP A2: 8 gare, orari=8; crawler=0 pagine=500",
     "LNP A2: calendario=0 squadre=0 news=23 crawler=392 pagine=500",
     "LNP B: calendario=0 squadre=0 news=21 crawler=587 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
