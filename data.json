@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-28T05:53:52+00:00",
+  "updated_at": "2026-10-28T06:38:31+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -6030,6 +6030,16 @@
       "competition": "EUROLEAGUE",
       "competition_label": "EuroLeague",
       "watch": "Sky / NOW"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "20:30",
+      "home": "Luiss Roma",
+      "away": "PSA Napoli Est",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
     },
     {
       "date": "2026-11-12",
@@ -21589,7 +21599,7 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=11/322, A2=435/551, B=639/772, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=11/322, A2=435/551, B=640/773, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=271",
     "ATTENZIONE A2: gare future senza orario=98",
     "ATTENZIONE B: gare future senza orario=110"
