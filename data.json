@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-30T09:20:17+00:00",
+  "updated_at": "2026-10-30T15:52:45+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -4391,6 +4391,16 @@
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-01",
+      "time": "18:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Sella Cento",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP news ufficiali"
     },
     {
       "date": "2026-11-01",
@@ -21600,16 +21610,16 @@
   ],
   "source_report": [
     "FIP Serie A: 5 gare, orari=5; crawler=0 pagine=500",
-    "FIP A2: 11 gare, orari=11; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=16 crawler=391 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=15 crawler=583 pagine=500",
+    "FIP A2: 10 gare, orari=10; crawler=0 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=13 crawler=391 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=33 crawler=583 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=12/323, A2=435/551, B=640/773, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=12/323, A2=436/552, B=640/773, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=271",
     "ATTENZIONE A2: gare future senza orario=98",
     "ATTENZIONE B: gare future senza orario=110"
