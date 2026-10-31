@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-10-31T03:03:59+00:00",
+  "updated_at": "2026-10-31T09:20:54+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -5868,6 +5868,16 @@
     {
       "date": "2026-11-11",
       "time": "20:30",
+      "home": "TAV Treviglio Brianza Basket",
+      "away": "S4 Energia Vicenza",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-11",
+      "time": "20:30",
       "home": "Tema Sinergie Faenza",
       "away": "Consorzio Leonardo Dany Quarrata",
       "competition": "B",
@@ -6008,16 +6018,6 @@
       "time": "",
       "home": "Pallacanestro Viola Reggio Calabria",
       "away": "SAE Scientifica-Soevis Legnano Knights",
-      "competition": "B",
-      "competition_label": "Serie B Nazionale",
-      "watch": "LNP Pass",
-      "source": "LNP PDF fallback"
-    },
-    {
-      "date": "2026-11-11",
-      "time": "",
-      "home": "TAV Treviglio Brianza Basket",
-      "away": "S4 Energia Vicenza",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
@@ -18519,6 +18519,16 @@
     {
       "date": "2027-04-04",
       "time": "17:00",
+      "home": "ELAchem Vigevano 1955",
+      "away": "Valtur Brindisi",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2027-04-04",
+      "time": "17:00",
       "home": "LTC Group Sangiorgese Basket",
       "away": "Siaz Basket Piazza Armerina",
       "competition": "B",
@@ -18531,16 +18541,6 @@
       "time": "18:00",
       "home": "CMT Orange Tools Pesaro",
       "away": "Dole Basket Rimini",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "LNP Pass",
-      "source": "LNP crawler ufficiale"
-    },
-    {
-      "date": "2027-04-04",
-      "time": "18:00",
-      "home": "ELAchem Vigevano 1955",
-      "away": "Valtur Brindisi",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
@@ -21619,9 +21619,9 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=12/323, A2=436/552, B=640/773, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=12/323, A2=436/552, B=641/773, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=271",
     "ATTENZIONE A2: gare future senza orario=98",
-    "ATTENZIONE B: gare future senza orario=110"
+    "ATTENZIONE B: gare future senza orario=109"
   ]
 }
