@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-01T22:53:47+00:00",
+  "updated_at": "2026-11-02T02:02:19+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -21680,8 +21680,8 @@
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
     "Orari acquisiti: LBA=12/323, A2=440/556, B=643/775, EUROLEAGUE=380/380, EUROCUP=224/224",
-    "ATTENZIONE LBA: gare future senza orario=271",
-    "ATTENZIONE A2: gare future senza orario=98",
-    "ATTENZIONE B: gare future senza orario=109"
+    "ATTENZIONE LBA: gare future senza orario=263",
+    "ATTENZIONE A2: gare future senza orario=93",
+    "ATTENZIONE B: gare future senza orario=107"
   ]
 }
