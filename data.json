@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-07T02:01:39+00:00",
+  "updated_at": "2026-11-07T08:14:27+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -11955,6 +11955,16 @@
     {
       "date": "2027-01-09",
       "time": "20:30",
+      "home": "CMT Orange Tools Pesaro",
+      "away": "Crifo Wines Ruvo di Puglia",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2027-01-09",
+      "time": "20:30",
       "home": "Gemini Mestre",
       "away": "Ferraroni Juvi Cremona 1952",
       "competition": "A2",
@@ -21721,7 +21731,7 @@
   "source_report": [
     "FIP Serie A: 4 gare, orari=4; crawler=0 pagine=500",
     "FIP A2: 7 gare, orari=7; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=22 crawler=391 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=22 crawler=392 pagine=500",
     "LNP B: calendario=0 squadre=0 news=33 crawler=581 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
@@ -21729,7 +21739,7 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=13/324, A2=444/560, B=643/775, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=13/324, A2=445/561, B=643/775, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=263",
     "ATTENZIONE A2: gare future senza orario=93",
     "ATTENZIONE B: gare future senza orario=107"
