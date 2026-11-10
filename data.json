@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-10T03:11:27+00:00",
+  "updated_at": "2026-11-10T10:56:27+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -5602,6 +5602,16 @@
     },
     {
       "date": "2026-11-10",
+      "time": "17:00",
+      "home": "Reale Mutua Torino",
+      "away": "Valtur Brindisi",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-11-10",
       "time": "18:00",
       "home": "La T Tecnica Gema Montecatini",
       "away": "Libertas Livorno 1947",
@@ -5615,16 +5625,6 @@
       "time": "18:00",
       "home": "RSR Sebastiani Rieti",
       "away": "Reale Mutua Torino",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "Programmazione TV da definire",
-      "source": "FIP risultati ufficiali"
-    },
-    {
-      "date": "2026-11-10",
-      "time": "18:00",
-      "home": "Reale Mutua Torino",
-      "away": "Valtur Brindisi",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "Programmazione TV da definire",
@@ -6287,6 +6287,16 @@
     {
       "date": "2026-11-15",
       "time": "17:00",
+      "home": "Crifo Wines Ruvo di Puglia",
+      "away": "Reale Mutua Torino",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "17:00",
       "home": "Siaz Basket Piazza Armerina",
       "away": "Luxarm Lumezzane",
       "competition": "B",
@@ -6309,16 +6319,6 @@
       "time": "18:00",
       "home": "CMT Orange Tools Pesaro",
       "away": "ELAchem Vigevano 1955",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "LNP Pass",
-      "source": "LNP crawler ufficiale"
-    },
-    {
-      "date": "2026-11-15",
-      "time": "18:00",
-      "home": "Crifo Wines Ruvo di Puglia",
-      "away": "Reale Mutua Torino",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
@@ -21752,7 +21752,7 @@
     "FIP Serie A: 4 gare, orari=4; crawler=0 pagine=500",
     "FIP A2: 7 gare, orari=7; crawler=0 pagine=500",
     "LNP A2: calendario=0 squadre=0 news=14 crawler=389 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=15 crawler=581 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=15 crawler=582 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
