@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-12T00:11:51+00:00",
+  "updated_at": "2026-11-12T04:41:37+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -6192,6 +6192,16 @@
     {
       "date": "2026-11-12",
       "time": "21:00",
+      "home": "FABO Herons Montecatini",
+      "away": "Benacquista Assicurazioni Latina",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2026-11-12",
+      "time": "21:00",
       "home": "REAL MADRID",
       "away": "CRVENA ZVEZDA MERIDIANBET BELGRADE",
       "competition": "EUROLEAGUE",
@@ -6387,12 +6397,32 @@
     {
       "date": "2026-11-15",
       "time": "18:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Gemini Mestre",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "18:00",
       "home": "Valtur Brindisi",
       "away": "Sella Cento",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-15",
+      "time": "18:00",
+      "home": "A2A Leonessa Brescia",
+      "away": "Rucker San Vendemiano",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2026-11-15",
@@ -21791,15 +21821,15 @@
   "source_report": [
     "FIP Serie A: 3 gare, orari=3; crawler=0 pagine=500",
     "FIP A2: 6 gare, orari=6; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=10 crawler=389 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=15 crawler=582 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=8 crawler=390 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=15 crawler=583 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=13/324, A2=449/565, B=645/777, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=13/324, A2=450/566, B=647/779, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=255",
     "ATTENZIONE A2: gare future senza orario=86",
     "ATTENZIONE B: gare future senza orario=99"
