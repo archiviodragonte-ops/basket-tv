@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-15T17:52:30+00:00",
+  "updated_at": "2026-11-15T22:23:03+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -7243,6 +7243,16 @@
     {
       "date": "2026-11-22",
       "time": "18:00",
+      "home": "UEB Gesteco Cividale",
+      "away": "Dole Basket Rimini",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
+    },
+    {
+      "date": "2026-11-22",
+      "time": "18:00",
       "home": "Adamant Ferrara",
       "away": "Andrea Costa Imola",
       "competition": "B",
@@ -7399,6 +7409,16 @@
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-22",
+      "time": "20:45",
+      "home": "Rimadesio Desio",
+      "away": "Infodrive Capo d'Orlando",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "RaiSport HD · Rai Play",
+      "source": "LNP web"
     },
     {
       "date": "2026-11-22",
@@ -21841,15 +21861,15 @@
   "source_report": [
     "FIP Serie A: 3 gare, orari=3; crawler=0 pagine=500",
     "FIP A2: 6 gare, orari=6; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=23 crawler=389 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=35 crawler=553 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=22 crawler=390 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=19 crawler=553 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=13/324, A2=452/568, B=648/779, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=13/324, A2=453/569, B=649/780, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=255",
     "ATTENZIONE A2: gare future senza orario=86",
     "ATTENZIONE B: gare future senza orario=98"
