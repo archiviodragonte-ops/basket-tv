@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-15T22:23:03+00:00",
+  "updated_at": "2026-11-16T02:00:23+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -21862,16 +21862,16 @@
     "FIP Serie A: 3 gare, orari=3; crawler=0 pagine=500",
     "FIP A2: 6 gare, orari=6; crawler=0 pagine=500",
     "LNP A2: calendario=0 squadre=0 news=22 crawler=390 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=19 crawler=553 pagine=500",
-    "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=19 crawler=552 pagine=500",
+    "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=16",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
     "Orari acquisiti: LBA=13/324, A2=453/569, B=649/780, EUROLEAGUE=380/380, EUROCUP=224/224",
-    "ATTENZIONE LBA: gare future senza orario=255",
-    "ATTENZIONE A2: gare future senza orario=86",
-    "ATTENZIONE B: gare future senza orario=98"
+    "ATTENZIONE LBA: gare future senza orario=247",
+    "ATTENZIONE A2: gare future senza orario=83",
+    "ATTENZIONE B: gare future senza orario=94"
   ]
 }
