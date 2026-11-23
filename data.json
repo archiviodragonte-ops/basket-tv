@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-22T22:31:42+00:00",
+  "updated_at": "2026-11-23T02:54:32+00:00",
   "games": [
     {
       "date": "2026-09-24",
@@ -8031,6 +8031,16 @@
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-29",
+      "time": "18:00",
+      "home": "Rimadesio Desio",
+      "away": "Logiman Orzinuovi",
+      "competition": "B",
+      "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2026-11-29",
@@ -22061,17 +22071,17 @@
   "source_report": [
     "FIP Serie A: 7 gare, orari=7; crawler=0 pagine=500",
     "FIP A2: 5 gare, orari=5; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=20 crawler=390 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=16 crawler=552 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=11 crawler=389 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=16 crawler=551 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=20/331, A2=465/581, B=651/781, EUROLEAGUE=380/380, EUROCUP=224/224",
-    "ATTENZIONE LBA: gare future senza orario=247",
-    "ATTENZIONE A2: gare future senza orario=83",
-    "ATTENZIONE B: gare future senza orario=93"
+    "Orari acquisiti: LBA=20/331, A2=465/581, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "ATTENZIONE LBA: gare future senza orario=239",
+    "ATTENZIONE A2: gare future senza orario=81",
+    "ATTENZIONE B: gare future senza orario=89"
   ]
 }
