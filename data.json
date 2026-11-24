@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-23T23:05:13+00:00",
+  "updated_at": "2026-11-24T06:46:57+00:00",
   "games": [
     {
       "date": "2026-01-11",
@@ -8373,6 +8373,16 @@
       "source": "FIP risultati ufficiali"
     },
     {
+      "date": "2026-11-30",
+      "time": "20:30",
+      "home": "Reale Mutua Torino",
+      "away": "La T Tecnica Gema Montecatini",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
       "date": "2026-12-01",
       "time": "12:00",
       "home": "Tezenis Verona",
@@ -8409,6 +8419,16 @@
       "away": "Tezenis Verona",
       "competition": "LBA",
       "competition_label": "LBA Serie A",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-12-01",
+      "time": "18:00",
+      "home": "Juvecaserta 2021",
+      "away": "Banco di Sardegna Sassari",
+      "competition": "A2",
+      "competition_label": "Serie A2",
       "watch": "Programmazione TV da definire",
       "source": "FIP risultati ufficiali"
     },
@@ -8519,6 +8539,16 @@
       "away": "Tema Sinergie Faenza",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-12-05",
+      "time": "20:00",
+      "home": "Halley Campania Avellino Basket",
+      "away": "Flats Service Fortitudo Bologna",
+      "competition": "A2",
+      "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
     },
@@ -22230,16 +22260,16 @@
   ],
   "source_report": [
     "FIP Serie A: 7 gare, orari=7; crawler=0 pagine=500",
-    "FIP A2: 5 gare, orari=5; crawler=0 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=10 crawler=389 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=0 crawler=549 pagine=500",
+    "FIP A2: 7 gare, orari=7; crawler=0 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=10 crawler=390 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=0 crawler=550 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 927 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=20/331, A2=481/597, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=20/331, A2=484/600, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=239",
     "ATTENZIONE A2: gare future senza orario=81",
     "ATTENZIONE B: gare future senza orario=89"
