@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-25T02:26:06+00:00",
+  "updated_at": "2026-11-25T11:28:46+00:00",
   "games": [
     {
       "date": "2026-01-11",
@@ -8814,6 +8814,16 @@
     },
     {
       "date": "2026-12-06",
+      "time": "20:30",
+      "home": "Gemini Mestre",
+      "away": "La T Tecnica Gema Montecatini",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-12-06",
       "time": "",
       "home": "La T Tecnica Gema Montecatini",
       "away": "Unieuro Forlì",
@@ -8973,6 +8983,46 @@
       "competition": "LBA",
       "competition_label": "LBA Serie A",
       "watch": "LBA TV"
+    },
+    {
+      "date": "2026-12-07",
+      "time": "20:30",
+      "home": "Banco di Sardegna Sassari",
+      "away": "RSR Sebastiani Rieti",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-12-08",
+      "time": "12:00",
+      "home": "Armani Olimpia Milano",
+      "away": "Pallacanestro Trieste",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-12-08",
+      "time": "12:00",
+      "home": "Openjobmetis Varese",
+      "away": "Maxima Roma",
+      "competition": "LBA",
+      "competition_label": "LBA Serie A",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-12-08",
+      "time": "18:00",
+      "home": "Libertas Livorno 1947",
+      "away": "Reale Mutua Torino",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
     },
     {
       "date": "2026-12-08",
@@ -9205,16 +9255,6 @@
     {
       "date": "2026-12-11",
       "time": "20:30",
-      "home": "RSR Sebastiani Rieti",
-      "away": "Reale Mutua Torino",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "Programmazione TV da definire",
-      "source": "FIP risultati ufficiali"
-    },
-    {
-      "date": "2026-12-11",
-      "time": "20:30",
       "home": "VALENCIA BASKET",
       "away": "CRVENA ZVEZDA MERIDIANBET BELGRADE",
       "competition": "EUROLEAGUE",
@@ -9248,6 +9288,36 @@
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-12-11",
+      "time": "21:00",
+      "home": "Juvecaserta 2021",
+      "away": "Gemini Mestre",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-12-11",
+      "time": "21:00",
+      "home": "Libertas Livorno 1947",
+      "away": "Juvecaserta 2021",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
+    },
+    {
+      "date": "2026-12-11",
+      "time": "21:00",
+      "home": "RSR Sebastiani Rieti",
+      "away": "Reale Mutua Torino",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "Programmazione TV da definire",
+      "source": "FIP risultati ufficiali"
     },
     {
       "date": "2026-12-11",
@@ -22259,8 +22329,8 @@
     }
   ],
   "source_report": [
-    "FIP Serie A: 7 gare, orari=7; crawler=5 pagine=500",
-    "FIP A2: 5 gare, orari=5; crawler=5 pagine=500",
+    "FIP Serie A: 9 gare, orari=9; crawler=5 pagine=500",
+    "FIP A2: 10 gare, orari=10; crawler=5 pagine=500",
     "LNP A2: calendario=0 squadre=0 news=6 crawler=389 pagine=500",
     "LNP B: calendario=0 squadre=0 news=12 crawler=549 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
@@ -22269,7 +22339,7 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=20/331, A2=484/600, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=22/333, A2=489/605, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=239",
     "ATTENZIONE A2: gare future senza orario=81",
     "ATTENZIONE B: gare future senza orario=89"
