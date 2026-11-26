@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-26T03:22:52+00:00",
+  "updated_at": "2026-11-26T12:19:01+00:00",
   "games": [
     {
       "date": "2026-01-11",
@@ -9984,6 +9984,16 @@
     {
       "date": "2026-12-16",
       "time": "20:00",
+      "home": "Flats Service Fortitudo Bologna",
+      "away": "CMT Orange Tools Pesaro",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-12-16",
+      "time": "20:00",
       "home": "HAPOEL MIDTOWN JERUSALEM",
       "away": "RECOLETAS SALUD SAN PABLO BURGOS",
       "competition": "EUROCUP",
@@ -10023,16 +10033,6 @@
       "time": "20:30",
       "home": "Ferraroni Juvi Cremona 1952",
       "away": "Dole Basket Rimini",
-      "competition": "A2",
-      "competition_label": "Serie A2",
-      "watch": "LNP Pass",
-      "source": "LNP crawler ufficiale"
-    },
-    {
-      "date": "2026-12-16",
-      "time": "20:30",
-      "home": "Flats Service Fortitudo Bologna",
-      "away": "CMT Orange Tools Pesaro",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
@@ -14697,6 +14697,16 @@
       "time": "20:30",
       "home": "Halley Campania Avellino Basket",
       "away": "RSR Sebastiani Rieti",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2027-01-30",
+      "time": "20:30",
+      "home": "Juvecaserta 2021",
+      "away": "Valtur Brindisi",
       "competition": "A2",
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
@@ -22340,7 +22350,7 @@
   ],
   "source_report": [
     "FIP Serie A: 9 gare, orari=9; crawler=5 pagine=500",
-    "FIP A2: 10 gare, orari=10; crawler=5 pagine=500",
+    "FIP A2: 9 gare, orari=9; crawler=5 pagine=500",
     "LNP A2: calendario=0 squadre=0 news=13 crawler=389 pagine=500",
     "LNP B: calendario=0 squadre=0 news=28 crawler=549 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
@@ -22349,7 +22359,7 @@
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=22/333, A2=490/606, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=22/333, A2=491/607, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=239",
     "ATTENZIONE A2: gare future senza orario=81",
     "ATTENZIONE B: gare future senza orario=89"
