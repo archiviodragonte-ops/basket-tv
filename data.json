@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-27T12:45:11+00:00",
+  "updated_at": "2026-11-27T21:55:37+00:00",
   "games": [
     {
       "date": "2026-01-11",
@@ -8091,6 +8091,16 @@
       "competition_label": "Serie A2",
       "watch": "LNP Pass",
       "source": "LNP crawler ufficiale"
+    },
+    {
+      "date": "2026-11-29",
+      "time": "18:00",
+      "home": "Flats Service Fortitudo Bologna",
+      "away": "Banco di Sardegna Sassari",
+      "competition": "A2",
+      "competition_label": "Serie A2",
+      "watch": "LNP Pass",
+      "source": "LNP web"
     },
     {
       "date": "2026-11-29",
@@ -22351,15 +22361,15 @@
   "source_report": [
     "FIP Serie A: 9 gare, orari=9; crawler=5 pagine=500",
     "FIP A2: 9 gare, orari=9; crawler=5 pagine=500",
-    "LNP A2: calendario=0 squadre=0 news=24 crawler=388 pagine=500",
-    "LNP B: calendario=0 squadre=0 news=28 crawler=549 pagine=500",
+    "LNP A2: calendario=0 squadre=0 news=20 crawler=389 pagine=500",
+    "LNP B: calendario=0 squadre=0 news=16 crawler=550 pagine=500",
     "LBA: calendario=0 squadre=0 gare=0 news=0 crawler=0 pagine=500",
     "PDF fallback: 0 gare lette, 0 orari mancanti completati",
     "EuroLeague ufficiale: 0 gare",
     "EuroCup ufficiale: 0 gare",
     "Fonti: scansione strutturale siti ufficiali FIP/LNP/LBA + EuroLeague/EuroCup; PDF solo fallback orario",
     "Controllo duplicati: 0",
-    "Orari acquisiti: LBA=22/333, A2=491/607, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
+    "Orari acquisiti: LBA=22/333, A2=492/608, B=652/782, EUROLEAGUE=380/380, EUROCUP=224/224",
     "ATTENZIONE LBA: gare future senza orario=239",
     "ATTENZIONE A2: gare future senza orario=81",
     "ATTENZIONE B: gare future senza orario=89"
