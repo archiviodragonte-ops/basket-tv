@@ -1,6 +1,6 @@
 {
   "season": "2026/27",
-  "updated_at": "2026-11-28T03:51:11+00:00",
+  "updated_at": "2026-11-28T12:29:38+00:00",
   "games": [
     {
       "date": "2026-01-11",
@@ -8544,9 +8544,9 @@
     },
     {
       "date": "2026-12-05",
-      "time": "18:00",
-      "home": "Rimadesio Desio",
-      "away": "Andrea Costa Imola",
+      "time": "17:00",
+      "home": "Luiss Roma",
+      "away": "Tema Sinergie Faenza",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
@@ -8554,9 +8554,9 @@
     },
     {
       "date": "2026-12-05",
-      "time": "18:30",
-      "home": "Luiss Roma",
-      "away": "Tema Sinergie Faenza",
+      "time": "18:00",
+      "home": "Rimadesio Desio",
+      "away": "Andrea Costa Imola",
       "competition": "B",
       "competition_label": "Serie B Nazionale",
       "watch": "LNP Pass",
